@@ -108,9 +108,9 @@
   ❌ Ακύρωση Ραντεβού
 </button>
 
-      <button onclick="alert('Έχω μια ερώτηση')">
-        💬 Έχω μια ερώτηση
-      </button>
+      <button onclick="lunaAssistant()">
+  💬 Έχω μια ερώτηση
+</button>
 
     </div>
 
@@ -119,6 +119,36 @@
     </div>
 
   </div>
+<script>
+function lunaAssistant() {
+  const question = prompt("💗 Γεια σου! Είμαι η LUNA, η beauty assistant σου ✨\n\nΤι θα ήθελες να με ρωτήσεις;");
 
+  if (!question) return;
+
+  const q = question.toLowerCase();
+
+  if (q.includes("ραντεβού") || q.includes("κλείσω")) {
+    alert("💗 Φυσικά! Πάτησε «Κλείσε ραντεβού» για να συμπληρώσεις τη φόρμα κράτησης.");
+  } 
+  else if (q.includes("τιμή") || q.includes("τιμές") || q.includes("πόσο")) {
+    alert("✨ Μπορείς να δεις όλες τις υπηρεσίες και τις τιμές μας πατώντας «Υπηρεσίες & Τιμές».");
+  } 
+  else if (q.includes("ακύρ")) {
+    alert("❌ Για ακύρωση ραντεβού πάτησε «Ακύρωση Ραντεβού» και συμπλήρωσε τη φόρμα.");
+  } 
+  else if (q.includes("μανικιούρ")) {
+    alert("💅 Το μανικιούρ μας ξεκινά από 30€.");
+  } 
+  else if (q.includes("πεντικιούρ")) {
+    alert("🦶 Το πεντικιούρ μας ξεκινά από 35€.");
+  } 
+  else if (q.includes("βλεφαρίδ")) {
+    alert("👁️ Τα extensions βλεφαρίδων κοστίζουν 55€.");
+  } 
+  else {
+    alert("✨ Ευχαριστώ για την ερώτησή σου! Για περισσότερες πληροφορίες μπορείς να επικοινωνήσεις μαζί μας.");
+  }
+}
+</script>
 </body>
 </html>
