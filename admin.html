@@ -21,7 +21,7 @@
 
     header {
       background: white;
-      padding: 28px 20px;
+      padding: 30px 20px;
       text-align: center;
       border-bottom: 1px solid #eadcdf;
     }
@@ -42,6 +42,38 @@
       max-width: 1100px;
       margin: 30px auto;
       padding: 0 18px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 28px;
+    }
+
+    .stat {
+      background: white;
+      border-radius: 18px;
+      padding: 22px;
+      text-align: center;
+      box-shadow: 0 3px 14px rgba(0,0,0,0.06);
+    }
+
+    .stat-icon {
+      font-size: 27px;
+      margin-bottom: 8px;
+    }
+
+    .stat-number {
+      font-size: 30px;
+      font-weight: bold;
+      color: #6b4e55;
+    }
+
+    .stat-label {
+      margin-top: 5px;
+      color: #9a7d83;
+      font-size: 14px;
     }
 
     .tabs {
@@ -119,6 +151,10 @@
     }
 
     @media (max-width: 600px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
       .tabs {
         flex-direction: column;
       }
@@ -143,7 +179,30 @@
 
 <div class="container">
 
+  <div class="stats">
+
+    <div class="stat">
+      <div class="stat-icon">📅</div>
+      <div class="stat-number" id="appointmentCount">0</div>
+      <div class="stat-label">Ραντεβού</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">❌</div>
+      <div class="stat-number" id="cancellationCount">0</div>
+      <div class="stat-label">Ακυρώσεις</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">✨</div>
+      <div class="stat-number" id="totalCount">0</div>
+      <div class="stat-label">Συνολικές καταχωρήσεις</div>
+    </div>
+
+  </div>
+
   <div class="tabs">
+
     <button class="tab active" onclick="showSection('appointments', this)">
       📅 Ραντεβού
     </button>
@@ -151,9 +210,11 @@
     <button class="tab" onclick="showSection('cancellations', this)">
       ❌ Ακυρώσεις
     </button>
+
   </div>
 
   <section id="appointments" class="section active">
+
     <button class="refresh" onclick="loadAppointments()">
       🔄 Ανανέωση
     </button>
@@ -161,9 +222,11 @@
     <div id="appointmentsList">
       <div class="loading">Φόρτωση ραντεβού...</div>
     </div>
+
   </section>
 
   <section id="cancellations" class="section">
+
     <button class="refresh" onclick="loadCancellations()">
       🔄 Ανανέωση
     </button>
@@ -171,6 +234,7 @@
     <div id="cancellationsList">
       <div class="loading">Φόρτωση ακυρώσεων...</div>
     </div>
+
   </section>
 
 </div>
@@ -188,6 +252,33 @@ const supabaseClient =
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
   );
+
+
+async function loadStats() {
+
+  const { count: appointmentCount, error: appointmentError } =
+    await supabaseClient
+      .from("appointments")
+      .select("*", { count: "exact", head: true });
+
+  const { count: cancellationCount, error: cancellationError } =
+    await supabaseClient
+      .from("cancellations")
+      .select("*", { count: "exact", head: true });
+
+  if (!appointmentError) {
+    document.getElementById("appointmentCount").textContent =
+      appointmentCount || 0;
+  }
+
+  if (!cancellationError) {
+    document.getElementById("cancellationCount").textContent =
+      cancellationCount || 0;
+  }
+
+  document.getElementById("totalCount").textContent =
+    (appointmentCount || 0) + (cancellationCount || 0);
+}
 
 
 function showSection(sectionName, button) {
@@ -357,6 +448,7 @@ async function loadCancellations() {
 }
 
 
+loadStats();
 loadAppointments();
 
 </script>
