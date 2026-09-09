@@ -39,10 +39,12 @@
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 30px auto;
       padding: 0 18px;
     }
+
+    /* STATS */
 
     .stats {
       display: grid;
@@ -76,10 +78,13 @@
       font-size: 14px;
     }
 
+    /* TABS */
+
     .tabs {
       display: flex;
       gap: 12px;
       margin-bottom: 25px;
+      flex-wrap: wrap;
     }
 
     .tab {
@@ -105,6 +110,157 @@
     .section.active {
       display: block;
     }
+
+    /* BUTTONS */
+
+    .refresh {
+      margin-bottom: 20px;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      background: #6b555a;
+      color: white;
+      cursor: pointer;
+    }
+
+    .refresh:hover {
+      opacity: 0.9;
+    }
+
+    /* CALENDAR CONTROLS */
+
+    .calendar-header {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 3px 14px rgba(0,0,0,0.06);
+    }
+
+    .calendar-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .calendar-title {
+      font-family: Georgia, serif;
+      font-size: 22px;
+      color: #6b4e55;
+      font-weight: bold;
+    }
+
+    .calendar-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .calendar-btn {
+      border: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: #f5e8eb;
+      color: #6b4e55;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .calendar-btn:hover {
+      background: #e8cdd4;
+    }
+
+    /* WEEK */
+
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
+
+    .day-column {
+      background: #fdf7f8;
+      border-radius: 15px;
+      min-height: 300px;
+      padding: 12px;
+      border: 1px solid #f0e1e5;
+    }
+
+    .day-column.today {
+      border: 2px solid #d9aeb8;
+    }
+
+    .day-header {
+      text-align: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #eadcdf;
+      margin-bottom: 12px;
+    }
+
+    .day-name {
+      font-size: 12px;
+      color: #9a7d83;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .day-number {
+      font-size: 24px;
+      font-weight: bold;
+      color: #6b4e55;
+      margin-top: 4px;
+    }
+
+    .appointment {
+      background: white;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border-left: 4px solid #d9aeb8;
+    }
+
+    .appointment-time {
+      font-weight: bold;
+      color: #6b4e55;
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .appointment-service {
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .appointment-name {
+      font-size: 13px;
+      color: #6b555a;
+      margin-bottom: 4px;
+    }
+
+    .appointment-phone {
+      font-size: 12px;
+      color: #9a7d83;
+    }
+
+    .appointment-comment {
+      font-size: 12px;
+      color: #9a7d83;
+      margin-top: 7px;
+      padding-top: 7px;
+      border-top: 1px solid #f0e1e5;
+    }
+
+    .no-appointments {
+      text-align: center;
+      color: #b39da2;
+      font-size: 12px;
+      padding: 25px 5px;
+    }
+
+    /* LIST CARDS */
 
     .card {
       background: white;
@@ -135,22 +291,37 @@
       border-radius: 18px;
     }
 
-    .refresh {
-      margin-bottom: 20px;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 10px;
-      background: #6b555a;
-      color: white;
-      cursor: pointer;
-    }
-
     .loading {
       text-align: center;
       padding: 30px;
     }
 
+    /* MOBILE */
+
+    @media (max-width: 900px) {
+
+      .week-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .day-column {
+        min-height: auto;
+      }
+
+      .day-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+      }
+
+      .day-number {
+        margin-top: 0;
+      }
+    }
+
     @media (max-width: 600px) {
+
       .stats {
         grid-template-columns: 1fr;
       }
@@ -166,6 +337,19 @@
       header h1 {
         font-size: 22px;
       }
+
+      .calendar-top {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .calendar-title {
+        text-align: center;
+      }
+
+      .calendar-buttons {
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -178,6 +362,8 @@
 </header>
 
 <div class="container">
+
+  <!-- STATS -->
 
   <div class="stats">
 
@@ -201,6 +387,8 @@
 
   </div>
 
+  <!-- TABS -->
+
   <div class="tabs">
 
     <button class="tab active" onclick="showSection('appointments', this)">
@@ -213,17 +401,51 @@
 
   </div>
 
+  <!-- APPOINTMENTS -->
+
   <section id="appointments" class="section active">
 
-    <button class="refresh" onclick="loadAppointments()">
-      🔄 Ανανέωση
-    </button>
+    <div class="calendar-header">
 
-    <div id="appointmentsList">
-      <div class="loading">Φόρτωση ραντεβού...</div>
+      <div class="calendar-top">
+
+        <div class="calendar-title" id="calendarTitle">
+          Εβδομάδα
+        </div>
+
+        <div class="calendar-buttons">
+
+          <button class="calendar-btn" onclick="previousWeek()">
+            ← Προηγούμενη
+          </button>
+
+          <button class="calendar-btn" onclick="goToToday()">
+            Σήμερα
+          </button>
+
+          <button class="calendar-btn" onclick="nextWeek()">
+            Επόμενη →
+          </button>
+
+        </div>
+
+      </div>
+
+      <button class="refresh" onclick="loadAllAppointments()">
+        🔄 Ανανέωση
+      </button>
+
+      <div id="calendar">
+        <div class="loading">
+          Φόρτωση προγράμματος...
+        </div>
+      </div>
+
     </div>
 
   </section>
+
+  <!-- CANCELLATIONS -->
 
   <section id="cancellations" class="section">
 
@@ -232,7 +454,9 @@
     </button>
 
     <div id="cancellationsList">
-      <div class="loading">Φόρτωση ακυρώσεων...</div>
+      <div class="loading">
+        Φόρτωση ακυρώσεων...
+      </div>
     </div>
 
   </section>
@@ -254,144 +478,448 @@ const supabaseClient =
   );
 
 
-async function loadStats() {
+let allAppointments = [];
 
-  const { count: appointmentCount, error: appointmentError } =
-    await supabaseClient
-      .from("appointments")
-      .select("*", { count: "exact", head: true });
+let currentWeekStart = getMonday(new Date());
 
-  const { count: cancellationCount, error: cancellationError } =
-    await supabaseClient
-      .from("cancellations")
-      .select("*", { count: "exact", head: true });
 
-  if (!appointmentError) {
-    document.getElementById("appointmentCount").textContent =
-      appointmentCount || 0;
-  }
+/* -------------------------
+   DATE FUNCTIONS
+------------------------- */
 
-  if (!cancellationError) {
-    document.getElementById("cancellationCount").textContent =
-      cancellationCount || 0;
-  }
+function formatDate(date) {
 
-  document.getElementById("totalCount").textContent =
-    (appointmentCount || 0) + (cancellationCount || 0);
+  const year = date.getFullYear();
+
+  const month =
+    String(date.getMonth() + 1).padStart(2, "0");
+
+  const day =
+    String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
 }
 
 
+function getMonday(date) {
+
+  const d = new Date(date);
+
+  const day = d.getDay();
+
+  const difference =
+    day === 0 ? -6 : 1 - day;
+
+  d.setDate(d.getDate() + difference);
+
+  d.setHours(0, 0, 0, 0);
+
+  return d;
+}
+
+
+function formatGreekDate(date) {
+
+  return date.toLocaleDateString("el-GR", {
+    day: "numeric",
+    month: "long"
+  });
+}
+
+
+function formatTime(time) {
+
+  if (!time) return "";
+
+  return time.substring(0, 5);
+}
+
+
+/* -------------------------
+   STATS
+------------------------- */
+
+async function loadStats() {
+
+  const {
+    count: appointmentCount,
+    error: appointmentError
+  } =
+    await supabaseClient
+      .from("appointments")
+      .select("*", {
+        count: "exact",
+        head: true
+      });
+
+
+  const {
+    count: cancellationCount,
+    error: cancellationError
+  } =
+    await supabaseClient
+      .from("cancellations")
+      .select("*", {
+        count: "exact",
+        head: true
+      });
+
+
+  if (!appointmentError) {
+
+    document.getElementById(
+      "appointmentCount"
+    ).textContent =
+      appointmentCount || 0;
+  }
+
+
+  if (!cancellationError) {
+
+    document.getElementById(
+      "cancellationCount"
+    ).textContent =
+      cancellationCount || 0;
+  }
+
+
+  document.getElementById(
+    "totalCount"
+  ).textContent =
+    (appointmentCount || 0) +
+    (cancellationCount || 0);
+}
+
+
+/* -------------------------
+   NAVIGATION
+------------------------- */
+
 function showSection(sectionName, button) {
 
-  document.querySelectorAll(".section")
-    .forEach(section => section.classList.remove("active"));
+  document
+    .querySelectorAll(".section")
+    .forEach(section =>
+      section.classList.remove("active")
+    );
 
-  document.querySelectorAll(".tab")
-    .forEach(tab => tab.classList.remove("active"));
 
-  document.getElementById(sectionName)
+  document
+    .querySelectorAll(".tab")
+    .forEach(tab =>
+      tab.classList.remove("active")
+    );
+
+
+  document
+    .getElementById(sectionName)
     .classList.add("active");
+
 
   button.classList.add("active");
 
+
   if (sectionName === "appointments") {
-    loadAppointments();
+
+    renderCalendar();
   }
 
+
   if (sectionName === "cancellations") {
+
     loadCancellations();
   }
 }
 
 
-async function loadAppointments() {
+/* -------------------------
+   LOAD APPOINTMENTS
+------------------------- */
 
-  const container =
-    document.getElementById("appointmentsList");
+async function loadAllAppointments() {
 
-  container.innerHTML =
-    '<div class="loading">Φόρτωση ραντεβού...</div>';
+  const calendar =
+    document.getElementById("calendar");
 
-  const { data, error } =
+
+  calendar.innerHTML =
+    '<div class="loading">Φόρτωση προγράμματος...</div>';
+
+
+  const {
+    data,
+    error
+  } =
     await supabaseClient
       .from("appointments")
       .select("*")
-      .order("appointment_date", { ascending: true })
-      .order("appointment_time", { ascending: true });
+      .order("appointment_date", {
+        ascending: true
+      })
+      .order("appointment_time", {
+        ascending: true
+      });
+
 
   if (error) {
 
-    container.innerHTML =
+    calendar.innerHTML =
       '<div class="empty">❌ Δεν ήταν δυνατή η φόρτωση των ραντεβού.</div>';
 
     console.error(error);
-    return;
-  }
-
-  if (!data || data.length === 0) {
-
-    container.innerHTML =
-      '<div class="empty">Δεν υπάρχουν ακόμα ραντεβού.</div>';
 
     return;
   }
 
-  container.innerHTML = "";
 
-  data.forEach(appointment => {
+  allAppointments = data || [];
 
-    const card = document.createElement("div");
-
-    card.className = "card";
-
-    card.innerHTML = `
-      <h3>📅 ${appointment.service}</h3>
-
-      <div class="info">
-        <span class="label">Όνομα:</span>
-        ${appointment.name}
-      </div>
-
-      <div class="info">
-        <span class="label">Τηλέφωνο:</span>
-        ${appointment.phone}
-      </div>
-
-      <div class="info">
-        <span class="label">Ημερομηνία:</span>
-        ${appointment.appointment_date}
-      </div>
-
-      <div class="info">
-        <span class="label">Ώρα:</span>
-        ${appointment.appointment_time}
-      </div>
-
-      <div class="info">
-        <span class="label">Σχόλιο:</span>
-        ${appointment.comment || "—"}
-      </div>
-    `;
-
-    container.appendChild(card);
-
-  });
+  renderCalendar();
 }
 
+
+/* -------------------------
+   CALENDAR
+------------------------- */
+
+function renderCalendar() {
+
+  const calendar =
+    document.getElementById("calendar");
+
+
+  const weekEnd =
+    new Date(currentWeekStart);
+
+  weekEnd.setDate(
+    weekEnd.getDate() + 6
+  );
+
+
+  document.getElementById(
+    "calendarTitle"
+  ).textContent =
+    `${formatGreekDate(currentWeekStart)} – ${formatGreekDate(weekEnd)}`;
+
+
+  const weekGrid =
+    document.createElement("div");
+
+  weekGrid.className = "week-grid";
+
+
+  for (let i = 0; i < 7; i++) {
+
+    const date =
+      new Date(currentWeekStart);
+
+    date.setDate(
+      date.getDate() + i
+    );
+
+
+    const dateString =
+      formatDate(date);
+
+
+    const todayString =
+      formatDate(new Date());
+
+
+    const dayColumn =
+      document.createElement("div");
+
+    dayColumn.className =
+      "day-column";
+
+
+    if (dateString === todayString) {
+
+      dayColumn.classList.add("today");
+    }
+
+
+    const dayHeader =
+      document.createElement("div");
+
+    dayHeader.className =
+      "day-header";
+
+
+    const dayName =
+      document.createElement("div");
+
+    dayName.className =
+      "day-name";
+
+
+    dayName.textContent =
+      date.toLocaleDateString(
+        "el-GR",
+        { weekday: "long" }
+      );
+
+
+    const dayNumber =
+      document.createElement("div");
+
+    dayNumber.className =
+      "day-number";
+
+    dayNumber.textContent =
+      date.getDate();
+
+
+    dayHeader.appendChild(dayName);
+
+    dayHeader.appendChild(dayNumber);
+
+    dayColumn.appendChild(dayHeader);
+
+
+    const dayAppointments =
+      allAppointments.filter(
+        appointment =>
+          appointment.appointment_date ===
+          dateString
+      );
+
+
+    if (dayAppointments.length === 0) {
+
+      const empty =
+        document.createElement("div");
+
+      empty.className =
+        "no-appointments";
+
+      empty.textContent =
+        "Δεν υπάρχουν ραντεβού";
+
+      dayColumn.appendChild(empty);
+
+    } else {
+
+      dayAppointments.forEach(
+        appointment => {
+
+          const item =
+            document.createElement("div");
+
+          item.className =
+            "appointment";
+
+
+          item.innerHTML = `
+
+            <div class="appointment-time">
+              🕐 ${formatTime(appointment.appointment_time)}
+            </div>
+
+            <div class="appointment-service">
+              ✨ ${appointment.service}
+            </div>
+
+            <div class="appointment-name">
+              👤 ${appointment.name}
+            </div>
+
+            <div class="appointment-phone">
+              📞 ${appointment.phone}
+            </div>
+
+            ${
+              appointment.comment
+                ? `
+                <div class="appointment-comment">
+                  💬 ${appointment.comment}
+                </div>
+                `
+                : ""
+            }
+
+          `;
+
+
+          dayColumn.appendChild(item);
+
+        }
+      );
+
+    }
+
+
+    weekGrid.appendChild(dayColumn);
+
+  }
+
+
+  calendar.innerHTML = "";
+
+  calendar.appendChild(weekGrid);
+}
+
+
+/* -------------------------
+   WEEK NAVIGATION
+------------------------- */
+
+function previousWeek() {
+
+  currentWeekStart.setDate(
+    currentWeekStart.getDate() - 7
+  );
+
+  renderCalendar();
+}
+
+
+function nextWeek() {
+
+  currentWeekStart.setDate(
+    currentWeekStart.getDate() + 7
+  );
+
+  renderCalendar();
+}
+
+
+function goToToday() {
+
+  currentWeekStart =
+    getMonday(new Date());
+
+  renderCalendar();
+}
+
+
+/* -------------------------
+   CANCELLATIONS
+------------------------- */
 
 async function loadCancellations() {
 
   const container =
-    document.getElementById("cancellationsList");
+    document.getElementById(
+      "cancellationsList"
+    );
+
 
   container.innerHTML =
     '<div class="loading">Φόρτωση ακυρώσεων...</div>';
 
-  const { data, error } =
+
+  const {
+    data,
+    error
+  } =
     await supabaseClient
       .from("cancellations")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("created_at", {
+        ascending: false
+      });
+
 
   if (error) {
 
@@ -399,8 +927,10 @@ async function loadCancellations() {
       '<div class="empty">❌ Δεν ήταν δυνατή η φόρτωση των ακυρώσεων.</div>';
 
     console.error(error);
+
     return;
   }
+
 
   if (!data || data.length === 0) {
 
@@ -410,15 +940,21 @@ async function loadCancellations() {
     return;
   }
 
+
   container.innerHTML = "";
+
 
   data.forEach(cancellation => {
 
-    const card = document.createElement("div");
+    const card =
+      document.createElement("div");
+
 
     card.className = "card";
 
+
     card.innerHTML = `
+
       <h3>❌ Ακύρωση ραντεβού</h3>
 
       <div class="info">
@@ -440,7 +976,9 @@ async function loadCancellations() {
         <span class="label">Λόγος:</span>
         ${cancellation.reason || "—"}
       </div>
+
     `;
+
 
     container.appendChild(card);
 
@@ -448,8 +986,13 @@ async function loadCancellations() {
 }
 
 
+/* -------------------------
+   START
+------------------------- */
+
 loadStats();
-loadAppointments();
+
+loadAllAppointments();
 
 </script>
 
