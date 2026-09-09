@@ -125,30 +125,46 @@ function lunaAssistant() {
 
   if (!question) return;
 
-  const q = question.toLowerCase();
+  const q = question.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-  if (q.includes("ραντεβού") || q.includes("κλείσω")) {
+  if (q.includes("ραντεβου") || q.includes("κλεισω") || q.includes("κρατηση")) {
     alert("💗 Φυσικά! Πάτησε «Κλείσε ραντεβού» για να συμπληρώσεις τη φόρμα κράτησης.");
   } 
-  else if (q.includes("τιμή") || q.includes("τιμές") || q.includes("πόσο")) {
-    alert("✨ Μπορείς να δεις όλες τις υπηρεσίες και τις τιμές μας πατώντας «Υπηρεσίες & Τιμές».");
+  else if (q.includes("τιμη") || q.includes("τιμες") || q.includes("κοστιζει") || q.includes("κοστιζει") || q.includes("ποσο") || q.includes("κανει")) {
+    
+    if (q.includes("μανικιουρ")) {
+      alert("💅 Το μανικιούρ μας κοστίζει 30€.");
+    } 
+    else if (q.includes("πεντικιουρ")) {
+      alert("🦶 Το πεντικιούρ μας κοστίζει 35€.");
+    } 
+    else if (q.includes("βλεφαριδ")) {
+      alert("👁️ Τα extensions βλεφαρίδων κοστίζουν 55€.");
+    } 
+    else if (q.includes("προσωπο") || q.includes("facial")) {
+      alert("✨ Η περιποίηση προσώπου κοστίζει 45€.");
+    }
+    else {
+      alert("✨ Πάτησε «Υπηρεσίες & Τιμές» για να δεις όλες τις υπηρεσίες μας.");
+    }
   } 
-  else if (q.includes("ακύρ")) {
+  else if (q.includes("ακυρ")) {
     alert("❌ Για ακύρωση ραντεβού πάτησε «Ακύρωση Ραντεβού» και συμπλήρωσε τη φόρμα.");
   } 
-  else if (q.includes("μανικιούρ")) {
-    alert("💅 Το μανικιούρ μας ξεκινά από 30€.");
+  else if (q.includes("μανικιουρ")) {
+    alert("💅 Το μανικιούρ μας κοστίζει 30€.");
   } 
-  else if (q.includes("πεντικιούρ")) {
-    alert("🦶 Το πεντικιούρ μας ξεκινά από 35€.");
+  else if (q.includes("πεντικιουρ")) {
+    alert("🦶 Το πεντικιούρ μας κοστίζει 35€.");
   } 
-  else if (q.includes("βλεφαρίδ")) {
+  else if (q.includes("βλεφαριδ")) {
     alert("👁️ Τα extensions βλεφαρίδων κοστίζουν 55€.");
   } 
   else {
     alert("✨ Ευχαριστώ για την ερώτησή σου! Για περισσότερες πληροφορίες μπορείς να επικοινωνήσεις μαζί μας.");
   }
 }
+</script>
 </script>
 </body>
 </html>
