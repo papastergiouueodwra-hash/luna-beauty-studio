@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUNA BEAUTY STUDIO — Admin</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fdf7f8;
+      color: #4a3a3d;
+    }
+
+    header {
+      background: white;
+      padding: 28px 20px;
+      text-align: center;
+      border-bottom: 1px solid #eadcdf;
+    }
+
+    header h1 {
+      margin: 0;
+      font-family: Georgia, serif;
+      font-size: 28px;
+      letter-spacing: 2px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      color: #9a7d83;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 18px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .tab {
+      border: none;
+      padding: 13px 20px;
+      border-radius: 12px;
+      background: white;
+      color: #6b555a;
+      cursor: pointer;
+      font-size: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .tab.active {
+      background: #d9aeb8;
+      color: white;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 14px rgba(0,0,0,0.06);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #6b4e55;
+    }
+
+    .info {
+      margin: 7px 0;
+    }
+
+    .label {
+      font-weight: bold;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: #9a7d83;
+      background: white;
+      border-radius: 18px;
+    }
+
+    .refresh {
+      margin-bottom: 20px;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      background: #6b555a;
+      color: white;
+      cursor: pointer;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 30px;
+    }
+
+    @media (max-width: 600px) {
+      .tabs {
+        flex-direction: column;
+      }
+
+      .tab {
+        width: 100%;
+      }
+
+      header h1 {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>LUNA BEAUTY STUDIO</h1>
+  <p>Admin Dashboard ✨</p>
+</header>
+
+<div class="container">
+
+  <div class="tabs">
+    <button class="tab active" onclick="showSection('appointments', this)">
+      📅 Ραντεβού
+    </button>
+
+    <button class="tab" onclick="showSection('cancellations', this)">
+      ❌ Ακυρώσεις
+    </button>
+  </div>
+
+  <section id="appointments" class="section active">
+    <button class="refresh" onclick="loadAppointments()">
+      🔄 Ανανέωση
+    </button>
+
+    <div id="appointmentsList">
+      <div class="loading">Φόρτωση ραντεβού...</div>
+    </div>
+  </section>
+
+  <section id="cancellations" class="section">
+    <button class="refresh" onclick="loadCancellations()">
+      🔄 Ανανέωση
+    </button>
+
+    <div id="cancellationsList">
+      <div class="loading">Φόρτωση ακυρώσεων...</div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+
+const SUPABASE_URL =
+  "https://qhofixyxrouqnbydlgxh.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_nzgpgJEi0Uuh3hkEmu1uBw_ceghXjos";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+function showSection(sectionName, button) {
+
+  document.querySelectorAll(".section")
+    .forEach(section => section.classList.remove("active"));
+
+  document.querySelectorAll(".tab")
+    .forEach(tab => tab.classList.remove("active"));
+
+  document.getElementById(sectionName)
+    .classList.add("active");
+
+  button.classList.add("active");
+
+  if (sectionName === "appointments") {
+    loadAppointments();
+  }
+
+  if (sectionName === "cancellations") {
+    loadCancellations();
+  }
+}
+
+
+async function loadAppointments() {
+
+  const container =
+    document.getElementById("appointmentsList");
+
+  container.innerHTML =
+    '<div class="loading">Φόρτωση ραντεβού...</div>';
+
+  const { data, error } =
+    await supabaseClient
+      .from("appointments")
+      .select("*")
+      .order("appointment_date", { ascending: true })
+      .order("appointment_time", { ascending: true });
+
+  if (error) {
+
+    container.innerHTML =
+      '<div class="empty">❌ Δεν ήταν δυνατή η φόρτωση των ραντεβού.</div>';
+
+    console.error(error);
+    return;
+  }
+
+  if (!data || data.length === 0) {
+
+    container.innerHTML =
+      '<div class="empty">Δεν υπάρχουν ακόμα ραντεβού.</div>';
+
+    return;
+  }
+
+  container.innerHTML = "";
+
+  data.forEach(appointment => {
+
+    const card = document.createElement("div");
+
+    card.className = "card";
+
+    card.innerHTML = `
+      <h3>📅 ${appointment.service}</h3>
+
+      <div class="info">
+        <span class="label">Όνομα:</span>
+        ${appointment.name}
+      </div>
+
+      <div class="info">
+        <span class="label">Τηλέφωνο:</span>
+        ${appointment.phone}
+      </div>
+
+      <div class="info">
+        <span class="label">Ημερομηνία:</span>
+        ${appointment.appointment_date}
+      </div>
+
+      <div class="info">
+        <span class="label">Ώρα:</span>
+        ${appointment.appointment_time}
+      </div>
+
+      <div class="info">
+        <span class="label">Σχόλιο:</span>
+        ${appointment.comment || "—"}
+      </div>
+    `;
+
+    container.appendChild(card);
+
+  });
+}
+
+
+async function loadCancellations() {
+
+  const container =
+    document.getElementById("cancellationsList");
+
+  container.innerHTML =
+    '<div class="loading">Φόρτωση ακυρώσεων...</div>';
+
+  const { data, error } =
+    await supabaseClient
+      .from("cancellations")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+  if (error) {
+
+    container.innerHTML =
+      '<div class="empty">❌ Δεν ήταν δυνατή η φόρτωση των ακυρώσεων.</div>';
+
+    console.error(error);
+    return;
+  }
+
+  if (!data || data.length === 0) {
+
+    container.innerHTML =
+      '<div class="empty">Δεν υπάρχουν ακόμα ακυρώσεις.</div>';
+
+    return;
+  }
+
+  container.innerHTML = "";
+
+  data.forEach(cancellation => {
+
+    const card = document.createElement("div");
+
+    card.className = "card";
+
+    card.innerHTML = `
+      <h3>❌ Ακύρωση ραντεβού</h3>
+
+      <div class="info">
+        <span class="label">Όνομα:</span>
+        ${cancellation.name}
+      </div>
+
+      <div class="info">
+        <span class="label">Τηλέφωνο:</span>
+        ${cancellation.phone}
+      </div>
+
+      <div class="info">
+        <span class="label">Ημερομηνία ραντεβού:</span>
+        ${cancellation.appointment_date}
+      </div>
+
+      <div class="info">
+        <span class="label">Λόγος:</span>
+        ${cancellation.reason || "—"}
+      </div>
+    `;
+
+    container.appendChild(card);
+
+  });
+}
+
+
+loadAppointments();
+
+</script>
+
+</body>
+</html>
