@@ -14,93 +14,102 @@
     }
 
     body {
-      font-family: Georgia, serif;
-      background: #fdf8f5;
-      color: #4b3832;
       min-height: 100vh;
+      font-family: Georgia, "Times New Roman", serif;
+      background: linear-gradient(135deg, #fff8f7, #f9e8e8, #fdf5f2);
+      color: #5a3d3d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
 
     .container {
-      max-width: 500px;
-      margin: auto;
-      padding: 40px 24px;
+      width: 100%;
+      max-width: 430px;
       text-align: center;
     }
 
     .logo {
-      font-size: 42px;
-      letter-spacing: 3px;
-      margin-top: 30px;
-      color: #8c6860;
+      font-size: 48px;
+      letter-spacing: 4px;
+      font-weight: bold;
+      color: #8b5e62;
+      margin-bottom: 5px;
     }
 
     .subtitle {
-      margin-top: 10px;
-      font-size: 15px;
-      letter-spacing: 1px;
-      color: #9b8078;
+      font-size: 18px;
+      letter-spacing: 5px;
+      color: #9d7779;
+      margin-bottom: 12px;
     }
 
     .welcome {
-      margin: 45px 0 30px;
-      font-size: 22px;
+      font-size: 16px;
+      color: #806466;
+      margin-bottom: 28px;
     }
 
     .menu {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 13px;
     }
 
     .menu button {
       width: 100%;
-      padding: 18px;
-      border: 1px solid #dbc9c2;
-      border-radius: 14px;
-      background: #fffaf8;
-      color: #5a4039;
-      font-family: Georgia, serif;
-      font-size: 17px;
+      border: none;
+      padding: 17px 20px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.88);
+      color: #6d4b4f;
+      font-size: 16px;
+      font-family: Georgia, "Times New Roman", serif;
       cursor: pointer;
-      transition: 0.2s;
+      box-shadow: 0 5px 18px rgba(130, 90, 90, 0.10);
+      transition: 0.25s ease;
     }
 
     .menu button:hover {
-      background: #f3e5df;
       transform: translateY(-2px);
+      background: #fff;
+      box-shadow: 0 8px 22px rgba(130, 90, 90, 0.16);
     }
 
     .footer {
-      margin-top: 45px;
+      margin-top: 30px;
       font-size: 12px;
-      color: #aa938b;
+      color: #a58b8d;
+      letter-spacing: 0.5px;
     }
 
-    /* MODALS */
+    /* =========================
+       MODALS
+    ========================= */
 
     .modal {
       display: none;
       position: fixed;
-      z-index: 1000;
       inset: 0;
-      background: rgba(75, 56, 50, 0.35);
-      backdrop-filter: blur(5px);
-      align-items: center;
+      background: rgba(62, 37, 40, 0.48);
       justify-content: center;
+      align-items: center;
       padding: 20px;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
     }
 
     .modal-content {
-      position: relative;
       width: 100%;
       max-width: 430px;
       max-height: 90vh;
       overflow-y: auto;
-      background: #fffaf8;
-      border: 1px solid #eadbd5;
-      border-radius: 24px;
-      padding: 30px 22px;
-      box-shadow: 0 20px 60px rgba(75, 56, 50, 0.18);
+      background: #fffaf9;
+      border-radius: 25px;
+      padding: 28px 22px;
+      position: relative;
+      box-shadow: 0 15px 50px rgba(60, 30, 30, 0.25);
       animation: modalAppear 0.25s ease;
     }
 
@@ -118,119 +127,248 @@
 
     .close-modal {
       position: absolute;
-      top: 10px;
       right: 15px;
+      top: 12px;
+      width: 35px;
+      height: 35px;
       border: none;
-      background: transparent;
-      font-size: 28px;
-      color: #8c6860;
+      border-radius: 50%;
+      background: #f4dddd;
+      color: #80595d;
+      font-size: 23px;
       cursor: pointer;
     }
 
     .modal-content h2 {
-      text-align: center;
-      color: #6f5149;
-      font-size: 24px;
-      margin-bottom: 6px;
+      color: #81575b;
+      margin-bottom: 5px;
+      font-size: 26px;
     }
 
     .modal-subtitle {
-      text-align: center;
-      color: #aa938b;
-      font-size: 11px;
-      letter-spacing: 2px;
-      margin-bottom: 25px;
+      color: #a47e81;
+      font-size: 12px;
+      letter-spacing: 3px;
+      margin-bottom: 22px;
     }
 
-    /* SERVICES */
+    /* =========================
+       SERVICES
+    ========================= */
 
     .service-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
+      margin-top: 10px;
     }
 
-    .service-list div {
+    .service-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 15px;
-      padding: 13px 14px;
       background: #fff;
-      border: 1px solid #eee1dc;
-      border-radius: 12px;
-      color: #5a4039;
+      border-radius: 14px;
+      padding: 14px 15px;
+      box-shadow: 0 3px 12px rgba(130, 90, 90, 0.08);
+      color: #6d4b4f;
       font-size: 14px;
     }
 
-    .service-list strong {
-      color: #8c6860;
+    .service-price {
+      font-weight: bold;
+      color: #9a676d;
       white-space: nowrap;
+      margin-left: 10px;
     }
 
-    /* LUNA CHAT */
+    /* =========================
+       CHAT
+    ========================= */
 
     .chat-box {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
+      text-align: left;
     }
 
-    .luna-greeting {
-      background: #f3e5df;
-      border-radius: 16px;
+    .chat-messages {
+      background: #f9eeee;
+      border-radius: 18px;
       padding: 15px;
-      text-align: left;
-      color: #5a4039;
-      line-height: 1.5;
+      height: 300px;
+      overflow-y: auto;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .message {
+      max-width: 86%;
+      padding: 11px 13px;
+      border-radius: 16px;
       font-size: 14px;
+      line-height: 1.45;
+      word-wrap: break-word;
+    }
+
+    .luna-message {
+      align-self: flex-start;
+      background: #fff;
+      color: #65494c;
+      border-bottom-left-radius: 5px;
+      box-shadow: 0 2px 7px rgba(100, 60, 60, 0.07);
+    }
+
+    .user-message {
+      align-self: flex-end;
+      background: #d9b8bb;
+      color: #513b3e;
+      border-bottom-right-radius: 5px;
+    }
+
+    .quick-title {
+      font-size: 12px;
+      color: #9b7779;
+      margin: 4px 0 8px 3px;
+    }
+
+    .quick-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 13px;
+    }
+
+    .quick-button {
+      border: 1px solid #e8cfd0;
+      background: #fff;
+      color: #7a5559;
+      border-radius: 18px;
+      padding: 8px 11px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 12px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .quick-button:hover {
+      background: #f7e6e7;
+    }
+
+    .chat-input-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
     }
 
     .chat-input {
-      width: 100%;
-      min-height: 90px;
+      flex: 1;
+      min-height: 48px;
+      max-height: 100px;
       resize: none;
-      border: 1px solid #dbc9c2;
-      border-radius: 14px;
-      padding: 14px;
-      background: #fff;
-      color: #4b3832;
-      font-family: Georgia, serif;
-      font-size: 14px;
+      border: 1px solid #e3c8ca;
+      border-radius: 16px;
+      padding: 13px;
       outline: none;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 14px;
+      color: #5d4548;
+      background: #fff;
     }
 
     .chat-input:focus {
-      border-color: #b9958b;
+      border-color: #c99da1;
     }
 
     .chat-send {
-      width: 100%;
-      padding: 14px;
+      width: 48px;
+      height: 48px;
       border: none;
-      border-radius: 14px;
-      background: #8c6860;
+      border-radius: 15px;
+      background: #b9898e;
       color: white;
-      font-family: Georgia, serif;
-      font-size: 15px;
+      font-size: 18px;
       cursor: pointer;
-      transition: 0.2s;
+      flex-shrink: 0;
+      transition: 0.2s ease;
     }
 
     .chat-send:hover {
-      background: #76554e;
+      background: #a8757a;
+      transform: translateY(-1px);
     }
 
-    .chat-response {
+    .typing {
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .typing span {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #b58b8f;
+      animation: typing 1s infinite;
+    }
+
+    .typing span:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .typing span:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes typing {
+      0%, 60%, 100% {
+        opacity: 0.3;
+      }
+
+      30% {
+        opacity: 1;
+      }
+    }
+
+    .hidden {
       display: none;
-      background: #fff;
-      border: 1px solid #eee1dc;
-      border-radius: 14px;
-      padding: 15px;
-      text-align: left;
-      color: #5a4039;
-      font-size: 14px;
-      line-height: 1.5;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 480px) {
+
+      body {
+        padding: 15px;
+      }
+
+      .logo {
+        font-size: 40px;
+      }
+
+      .subtitle {
+        font-size: 15px;
+        letter-spacing: 4px;
+      }
+
+      .welcome {
+        font-size: 15px;
+      }
+
+      .modal {
+        padding: 12px;
+      }
+
+      .modal-content {
+        padding: 25px 17px;
+        border-radius: 22px;
+      }
+
+      .chat-messages {
+        height: 280px;
+      }
     }
   </style>
 </head>
@@ -239,9 +377,7 @@
 
   <div class="container">
 
-    <div class="logo">
-      LUNA
-    </div>
+    <div class="logo">LUNA</div>
 
     <div class="subtitle">
       BEAUTY STUDIO
@@ -253,7 +389,7 @@
 
     <div class="menu">
 
-      <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfjuKu7TTeKBCsMSEdsv9hqHq9fRa7JhNrQPLCEfOc8hzW-pA/viewform?usp=publish-editor', '_blank')">
+      <button onclick="openBooking()">
         💗 Κλείσε ραντεβού
       </button>
 
@@ -261,7 +397,7 @@
         ✨ Υπηρεσίες & Τιμές
       </button>
 
-      <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeZ3dTuj0ANox857-PALDBWBJ_21D-vf0PTT_MUybN2ghBajg/viewform?usp=publish-editor', '_blank')">
+      <button onclick="openCancellation()">
         ❌ Ακύρωση Ραντεβού
       </button>
 
@@ -278,7 +414,9 @@
   </div>
 
 
-  <!-- SERVICES MODAL -->
+  <!-- =========================
+       SERVICES MODAL
+  ========================= -->
 
   <div id="servicesModal" class="modal">
 
@@ -288,9 +426,7 @@
         ×
       </button>
 
-      <h2>
-        ✨ Υπηρεσίες & Τιμές
-      </h2>
+      <h2>✨ Υπηρεσίες & Τιμές</h2>
 
       <p class="modal-subtitle">
         LUNA BEAUTY STUDIO
@@ -298,44 +434,44 @@
 
       <div class="service-list">
 
-        <div>
+        <div class="service-item">
           <span>💅 Μανικιούρ</span>
-          <strong>30€</strong>
+          <span class="service-price">30€</span>
         </div>
 
-        <div>
+        <div class="service-item">
           <span>🦶 Πεντικιούρ</span>
-          <strong>35€</strong>
+          <span class="service-price">35€</span>
         </div>
 
-        <div>
+        <div class="service-item">
           <span>✨ Περιποίηση Προσώπου</span>
-          <strong>45€</strong>
+          <span class="service-price">45€</span>
         </div>
 
-        <div>
+        <div class="service-item">
           <span>👁️ Extensions Βλεφαρίδων</span>
-          <strong>55€</strong>
+          <span class="service-price">55€</span>
         </div>
 
-        <div>
+        <div class="service-item">
           <span>🤎 Σχηματισμός & Περιποίηση Φρυδιών</span>
-          <strong>30€</strong>
+          <span class="service-price">30€</span>
         </div>
 
-        <div>
+        <div class="service-item">
           <span>💆‍♀️ Lash Lift</span>
-          <strong>40€</strong>
+          <span class="service-price">40€</span>
         </div>
 
-        <div>
+        <div class="service-item">
           <span>💎 Gel / Ημιμόνιμο</span>
-          <strong>40€</strong>
+          <span class="service-price">40€</span>
         </div>
 
-        <div>
+        <div class="service-item">
           <span>🌸 Luxury Facial</span>
-          <strong>60€</strong>
+          <span class="service-price">60€</span>
         </div>
 
       </div>
@@ -345,7 +481,9 @@
   </div>
 
 
-  <!-- LUNA CHAT MODAL -->
+  <!-- =========================
+       LUNA CHAT MODAL
+  ========================= -->
 
   <div id="chatModal" class="modal">
 
@@ -355,9 +493,7 @@
         ×
       </button>
 
-      <h2>
-        💗 LUNA
-      </h2>
+      <h2>💗 LUNA</h2>
 
       <p class="modal-subtitle">
         BEAUTY ASSISTANT
@@ -365,23 +501,74 @@
 
       <div class="chat-box">
 
-        <div class="luna-greeting">
-          ✨ Γεια σου! Είμαι η LUNA, η beauty assistant σου.
-          <br><br>
-          Ρώτησέ με για υπηρεσίες, τιμές, ραντεβού ή ακυρώσεις. 💗
+        <div id="chatMessages" class="chat-messages">
+
+          <div class="message luna-message">
+            ✨ Γεια σου! Είμαι η LUNA, η beauty assistant σου. 💗
+            <br><br>
+            Μπορώ να σε βοηθήσω με υπηρεσίες, τιμές, ραντεβού και ακυρώσεις.
+          </div>
+
         </div>
 
-        <textarea
-          id="chatInput"
-          class="chat-input"
-          placeholder="Γράψε την ερώτησή σου..."
-        ></textarea>
 
-        <button class="chat-send" onclick="sendQuestion()">
-          ✨ Ρώτησε τη LUNA
-        </button>
+        <div class="quick-title">
+          Ή επίλεξε μια γρήγορη ερώτηση:
+        </div>
 
-        <div id="chatResponse" class="chat-response"></div>
+        <div class="quick-buttons">
+
+          <button
+            class="quick-button"
+            onclick="quickQuestion('Ποιες είναι οι υπηρεσίες και οι τιμές;')">
+            ✨ Τιμές
+          </button>
+
+          <button
+            class="quick-button"
+            onclick="quickQuestion('Θέλω να κλείσω ραντεβού')">
+            📅 Ραντεβού
+          </button>
+
+          <button
+            class="quick-button"
+            onclick="quickQuestion('Θέλω να ακυρώσω το ραντεβού μου')">
+            ❌ Ακύρωση
+          </button>
+
+          <button
+            class="quick-button"
+            onclick="quickQuestion('Πόσο κοστίζει το μανικιούρ;')">
+            💅 Μανικιούρ
+          </button>
+
+          <button
+            class="quick-button"
+            onclick="quickQuestion('Πόσο κοστίζουν οι βλεφαρίδες;')">
+            👁️ Βλεφαρίδες
+          </button>
+
+        </div>
+
+
+        <div class="chat-input-row">
+
+          <textarea
+            id="chatInput"
+            class="chat-input"
+            placeholder="Γράψε την ερώτησή σου..."
+            rows="1"
+            onkeydown="handleEnter(event)"
+          ></textarea>
+
+          <button
+            class="chat-send"
+            onclick="sendQuestion()"
+            title="Αποστολή">
+            ➤
+          </button>
+
+        </div>
 
       </div>
 
@@ -392,49 +579,213 @@
 
   <script>
 
-    /* SERVICES */
+    /* =========================
+       GOOGLE FORMS
+    ========================= */
+
+    function openBooking() {
+
+      window.open(
+        "https://docs.google.com/forms/d/e/1FAIpQLSfjuKu7TTeKBCsMSEdsv9hqHq9fRa7JhNrQPLCEfOc8hzW-pA/viewform?usp=publish-editor",
+        "_blank"
+      );
+
+    }
+
+
+    function openCancellation() {
+
+      window.open(
+        "https://docs.google.com/forms/d/e/1FAIpQLSeZ3dTuj0ANox857-PALDBWBJ_21D-vf0PTT_MUybN2ghBajg/viewform?usp=publish-editor",
+        "_blank"
+      );
+
+    }
+
+
+    /* =========================
+       SERVICES
+    ========================= */
 
     function showServices() {
+
       document.getElementById("servicesModal").style.display = "flex";
+
     }
+
 
     function closeServices() {
+
       document.getElementById("servicesModal").style.display = "none";
+
     }
 
 
-    /* CHAT */
+    /* =========================
+       LUNA CHAT
+    ========================= */
 
     function lunaAssistant() {
+
       document.getElementById("chatModal").style.display = "flex";
 
       document.getElementById("chatInput").value = "";
-      document.getElementById("chatResponse").style.display = "none";
 
       setTimeout(function() {
+
         document.getElementById("chatInput").focus();
+
       }, 200);
+
     }
+
 
     function closeChat() {
+
       document.getElementById("chatModal").style.display = "none";
+
     }
 
 
-    /* LUNA ANSWERS */
+    /* =========================
+       ADD MESSAGE
+    ========================= */
+
+    function addMessage(text, type) {
+
+      const messages = document.getElementById("chatMessages");
+
+      const message = document.createElement("div");
+
+      message.className = "message " + type;
+
+      message.innerHTML = text;
+
+      messages.appendChild(message);
+
+      messages.scrollTop = messages.scrollHeight;
+
+    }
+
+
+    /* =========================
+       TYPING EFFECT
+    ========================= */
+
+    function showTyping() {
+
+      const messages = document.getElementById("chatMessages");
+
+      const typing = document.createElement("div");
+
+      typing.id = "typingMessage";
+
+      typing.className = "message luna-message";
+
+      typing.innerHTML = `
+        <div class="typing">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      `;
+
+      messages.appendChild(typing);
+
+      messages.scrollTop = messages.scrollHeight;
+
+    }
+
+
+    function removeTyping() {
+
+      const typing = document.getElementById("typingMessage");
+
+      if (typing) {
+
+        typing.remove();
+
+      }
+
+    }
+
+
+    /* =========================
+       SEND QUESTION
+    ========================= */
 
     function sendQuestion() {
 
       const input = document.getElementById("chatInput");
-      const response = document.getElementById("chatResponse");
 
       const question = input.value.trim();
 
       if (!question) {
-        response.innerHTML = "💗 Γράψε μου πρώτα την ερώτησή σου!";
-        response.style.display = "block";
+
         return;
+
       }
+
+      addMessage(
+        escapeHtml(question),
+        "user-message"
+      );
+
+      input.value = "";
+
+      showTyping();
+
+      setTimeout(function() {
+
+        removeTyping();
+
+        const answer = getLunaAnswer(question);
+
+        addMessage(
+          answer,
+          "luna-message"
+        );
+
+      }, 650);
+
+    }
+
+
+    /* =========================
+       QUICK QUESTIONS
+    ========================= */
+
+    function quickQuestion(question) {
+
+      document.getElementById("chatInput").value = question;
+
+      sendQuestion();
+
+    }
+
+
+    /* =========================
+       ENTER TO SEND
+    ========================= */
+
+    function handleEnter(event) {
+
+      if (event.key === "Enter" && !event.shiftKey) {
+
+        event.preventDefault();
+
+        sendQuestion();
+
+      }
+
+    }
+
+
+    /* =========================
+       LUNA BRAIN
+    ========================= */
+
+    function getLunaAnswer(question) {
 
       const q = question
         .toLowerCase()
@@ -442,144 +793,250 @@
         .replace(/[\u0300-\u036f]/g, "");
 
 
+      /* ΡΑΝΤΕΒΟΥ */
+
       if (
         q.includes("ραντεβου") ||
         q.includes("κλεισω") ||
-        q.includes("κρατηση")
+        q.includes("κρατηση") ||
+        q.includes("διαθεσιμο")
       ) {
 
-        response.innerHTML =
-          "💗 Φυσικά! Για να κλείσεις ραντεβού, πάτησε «Κλείσε ραντεβού» από το κεντρικό μενού.";
+        return `
+          💗 Φυσικά! Για να κλείσεις το ραντεβού σου,
+          πάτησε <strong>«Κλείσε ραντεβού»</strong>
+          από το κεντρικό μενού.
+          <br><br>
+          ✨ Θα συμπληρώσεις την υπηρεσία, την ημερομηνία
+          και την ώρα που σε ενδιαφέρει.
+        `;
 
       }
 
 
-      else if (
-        q.includes("τιμη") ||
+      /* ΑΚΥΡΩΣΗ */
+
+      if (
+        q.includes("ακυρ") ||
+        q.includes("ακυρωσω")
+      ) {
+
+        return `
+          ❌ Φυσικά!
+          Για να ακυρώσεις το ραντεβού σου,
+          πάτησε <strong>«Ακύρωση Ραντεβού»</strong>
+          από το κεντρικό μενού. 💗
+        `;
+
+      }
+
+
+      /* ΟΛΕΣ ΟΙ ΤΙΜΕΣ */
+
+      if (
         q.includes("τιμες") ||
+        q.includes("τιμη") ||
         q.includes("κοστιζει") ||
         q.includes("ποσο") ||
-        q.includes("κανει")
+        q.includes("κανει") ||
+        q.includes("υπηρεσι")
       ) {
 
-        if (q.includes("μανικιουρ")) {
+        return `
+          ✨ Φυσικά! Αυτές είναι οι υπηρεσίες μας:
+          <br><br>
 
-          response.innerHTML =
-            "💅 Το μανικιούρ μας κοστίζει <strong>30€</strong>.";
-
-        }
-
-        else if (q.includes("πεντικιουρ")) {
-
-          response.innerHTML =
-            "🦶 Το πεντικιούρ μας κοστίζει <strong>35€</strong>.";
-
-        }
-
-        else if (q.includes("βλεφαριδ")) {
-
-          response.innerHTML =
-            "👁️ Τα extensions βλεφαρίδων κοστίζουν <strong>55€</strong>.";
-
-        }
-
-        else if (
-          q.includes("προσωπο") ||
-          q.includes("facial")
-        ) {
-
-          response.innerHTML =
-            "✨ Η περιποίηση προσώπου κοστίζει <strong>45€</strong>.";
-
-        }
-
-        else if (q.includes("φρυδι")) {
-
-          response.innerHTML =
-            "🤎 Ο σχηματισμός & η περιποίηση φρυδιών κοστίζει <strong>30€</strong>.";
-
-        }
-
-        else if (q.includes("lash") || q.includes("lift")) {
-
-          response.innerHTML =
-            "💆‍♀️ Το Lash Lift κοστίζει <strong>40€</strong>.";
-
-        }
-
-        else if (
-          q.includes("gel") ||
-          q.includes("ημιμονιμο")
-        ) {
-
-          response.innerHTML =
-            "💎 Το Gel / Ημιμόνιμο κοστίζει <strong>40€</strong>.";
-
-        }
-
-        else if (q.includes("luxury")) {
-
-          response.innerHTML =
-            "🌸 Το Luxury Facial κοστίζει <strong>60€</strong>.";
-
-        }
-
-        else {
-
-          response.innerHTML =
-            "✨ Πάτησε «Υπηρεσίες & Τιμές» για να δεις ολόκληρο τον κατάλογό μας.";
-
-        }
+          💅 Μανικιούρ — <strong>30€</strong><br>
+          🦶 Πεντικιούρ — <strong>35€</strong><br>
+          ✨ Περιποίηση Προσώπου — <strong>45€</strong><br>
+          👁️ Extensions Βλεφαρίδων — <strong>55€</strong><br>
+          🤎 Φρύδια — <strong>30€</strong><br>
+          💆‍♀️ Lash Lift — <strong>40€</strong><br>
+          💎 Gel / Ημιμόνιμο — <strong>40€</strong><br>
+          🌸 Luxury Facial — <strong>60€</strong>
+        `;
 
       }
 
 
-      else if (q.includes("ακυρ")) {
+      /* ΜΑΝΙΚΙΟΥΡ */
 
-        response.innerHTML =
-          "❌ Για ακύρωση ραντεβού, πάτησε «Ακύρωση Ραντεβού» από το κεντρικό μενού.";
+      if (
+        q.includes("μανικιουρ") ||
+        q.includes("νυχια χεριων")
+      ) {
 
-      }
-
-
-      else if (q.includes("μανικιουρ")) {
-
-        response.innerHTML =
-          "💅 Το μανικιούρ μας κοστίζει <strong>30€</strong>.";
-
-      }
-
-
-      else if (q.includes("πεντικιουρ")) {
-
-        response.innerHTML =
-          "🦶 Το πεντικιούρ μας κοστίζει <strong>35€</strong>.";
+        return `
+          💅 Το μανικιούρ μας κοστίζει
+          <strong>30€</strong>.
+          <br><br>
+          Θέλεις να κλείσεις ραντεβού; 💗
+        `;
 
       }
 
 
-      else if (q.includes("βλεφαριδ")) {
+      /* ΠΕΝΤΙΚΙΟΥΡ */
 
-        response.innerHTML =
-          "👁️ Τα extensions βλεφαρίδων κοστίζουν <strong>55€</strong>.";
+      if (
+        q.includes("πεντικιουρ") ||
+        q.includes("ποδια")
+      ) {
+
+        return `
+          🦶 Το πεντικιούρ μας κοστίζει
+          <strong>35€</strong>.
+          <br><br>
+          Αν θέλεις να κλείσεις ραντεβού,
+          πάτησε «Κλείσε ραντεβού». 💗
+        `;
 
       }
 
 
-      else {
+      /* ΒΛΕΦΑΡΙΔΕΣ */
 
-        response.innerHTML =
-          "✨ Δεν είμαι σίγουρη ότι κατάλαβα. Μπορείς να με ρωτήσεις για υπηρεσίες, τιμές, ραντεβού ή ακύρωση. 💗";
+      if (
+        q.includes("βλεφαριδ") ||
+        q.includes("extensions") ||
+        q.includes("extension")
+      ) {
+
+        return `
+          👁️ Τα Extensions Βλεφαρίδων κοστίζουν
+          <strong>55€</strong>.
+          <br><br>
+          Επίσης έχουμε Lash Lift στα
+          <strong>40€</strong>. ✨
+        `;
 
       }
 
-      response.style.display = "block";
+
+      /* ΠΡΟΣΩΠΟ */
+
+      if (
+        q.includes("προσωπο") ||
+        q.includes("facial")
+      ) {
+
+        return `
+          ✨ Έχουμε δύο επιλογές περιποίησης προσώπου:
+          <br><br>
+          • Περιποίηση Προσώπου — <strong>45€</strong><br>
+          • Luxury Facial — <strong>60€</strong>
+        `;
+
+      }
+
+
+      /* ΦΡΥΔΙΑ */
+
+      if (
+        q.includes("φρυδι")
+      ) {
+
+        return `
+          🤎 Ο σχηματισμός & η περιποίηση φρυδιών
+          κοστίζει <strong>30€</strong>.
+        `;
+
+      }
+
+
+      /* LASH LIFT */
+
+      if (
+        q.includes("lash") ||
+        q.includes("lift")
+      ) {
+
+        return `
+          💆‍♀️ Το Lash Lift κοστίζει
+          <strong>40€</strong>. ✨
+        `;
+
+      }
+
+
+      /* GEL */
+
+      if (
+        q.includes("gel") ||
+        q.includes("ημιμονιμο") ||
+        q.includes("ημιμονιμο")
+      ) {
+
+        return `
+          💎 Το Gel / Ημιμόνιμο κοστίζει
+          <strong>40€</strong>.
+        `;
+
+      }
+
+
+      /* ΧΑΙΡΕΤΙΣΜΟΣ */
+
+      if (
+        q.includes("γεια") ||
+        q.includes("hello") ||
+        q.includes("hi") ||
+        q.includes("καλημερα") ||
+        q.includes("καλησπερα")
+      ) {
+
+        return `
+          💗 Γεια σου!
+          Χαίρομαι που σε βλέπω στη LUNA. ✨
+          <br><br>
+          Μπορώ να σε βοηθήσω με:
+          <br>
+          💅 υπηρεσίες & τιμές<br>
+          📅 ραντεβού<br>
+          ❌ ακυρώσεις
+        `;
+
+      }
+
+
+      /* DEFAULT */
+
+      return `
+        ✨ Χμμ... δεν είμαι σίγουρη ότι κατάλαβα.
+        <br><br>
+        Μπορείς να με ρωτήσεις για:
+        <br>
+        💅 υπηρεσίες & τιμές<br>
+        📅 ραντεβού<br>
+        ❌ ακύρωση ραντεβού
+        <br><br>
+        💗 Είμαι εδώ για να σε βοηθήσω!
+      `;
+
     }
 
 
-    /* CLOSE MODALS WHEN CLICKING OUTSIDE */
+    /* =========================
+       SECURITY
+    ========================= */
 
-    window.onclick = function(event) {
+    function escapeHtml(text) {
+
+      const div = document.createElement("div");
+
+      div.textContent = text;
+
+      return div.innerHTML;
+
+    }
+
+
+    /* =========================
+       CLOSE MODAL WHEN CLICK
+       OUTSIDE
+    ========================= */
+
+    window.addEventListener("click", function(event) {
 
       const servicesModal =
         document.getElementById("servicesModal");
@@ -587,15 +1044,21 @@
       const chatModal =
         document.getElementById("chatModal");
 
+
       if (event.target === servicesModal) {
+
         closeServices();
+
       }
+
 
       if (event.target === chatModal) {
+
         closeChat();
+
       }
 
-    };
+    });
 
   </script>
 
