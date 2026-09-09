@@ -152,6 +152,12 @@
       margin-bottom: 22px;
     }
 
+    /* HIDDEN */
+
+    .hidden {
+      display: none !important;
+    }
+
     /* SERVICES */
 
     .service-list {
@@ -265,6 +271,23 @@
       color: #806466;
       font-size: 14px;
       line-height: 1.6;
+    }
+
+    .success-close {
+      width: 100%;
+      border: none;
+      border-radius: 16px;
+      padding: 14px;
+      background: #b9898e;
+      color: white;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 18px;
+    }
+
+    .success-close:hover {
+      background: #a8757a;
     }
 
     .error-message {
@@ -622,6 +645,12 @@
           καταχωρήθηκε επιτυχώς.
         </p>
 
+        <button
+          class="success-close"
+          onclick="resetBooking()">
+          ✓ Κλείσιμο
+        </button>
+
       </div>
 
     </div>
@@ -718,6 +747,12 @@
           <br>
           Σε ευχαριστούμε που μας ενημέρωσες. ✨
         </p>
+
+        <button
+          class="success-close"
+          onclick="resetCancellation()">
+          ✓ Κλείσιμο
+        </button>
 
       </div>
 
@@ -910,8 +945,23 @@
 
       document.getElementById("bookingModal").style.display = "flex";
 
-      document.getElementById("bookingFormContainer").classList.remove("hidden");
-      document.getElementById("bookingSuccess").classList.add("hidden");
+      document
+        .getElementById("bookingFormContainer")
+        .classList.remove("hidden");
+
+      document
+        .getElementById("bookingSuccess")
+        .classList.add("hidden");
+
+      const button =
+        document.getElementById("bookingSubmit");
+
+      button.disabled = false;
+      button.textContent = "💗 Υποβολή Ραντεβού";
+
+      document
+        .getElementById("bookingError")
+        .style.display = "none";
 
       setMinimumDate("bookingDate");
 
@@ -920,7 +970,38 @@
 
     function closeBooking() {
 
-      document.getElementById("bookingModal").style.display = "none";
+      document
+        .getElementById("bookingModal")
+        .style.display = "none";
+
+    }
+
+
+    function resetBooking() {
+
+      document
+        .getElementById("bookingForm")
+        .reset();
+
+      document
+        .getElementById("bookingFormContainer")
+        .classList.remove("hidden");
+
+      document
+        .getElementById("bookingSuccess")
+        .classList.add("hidden");
+
+      const button =
+        document.getElementById("bookingSubmit");
+
+      button.disabled = false;
+      button.textContent = "💗 Υποβολή Ραντεβού";
+
+      document
+        .getElementById("bookingError")
+        .style.display = "none";
+
+      setMinimumDate("bookingDate");
 
     }
 
@@ -946,33 +1027,65 @@
         const bookingData = {
 
           name:
-            document.getElementById("bookingName").value.trim(),
+            document
+              .getElementById("bookingName")
+              .value
+              .trim(),
 
           phone:
-            document.getElementById("bookingPhone").value.trim(),
+            document
+              .getElementById("bookingPhone")
+              .value
+              .trim(),
 
           service:
-            document.getElementById("bookingService").value,
+            document
+              .getElementById("bookingService")
+              .value,
 
           appointment_date:
-            document.getElementById("bookingDate").value,
+            document
+              .getElementById("bookingDate")
+              .value,
 
           appointment_time:
-            document.getElementById("bookingTime").value,
+            document
+              .getElementById("bookingTime")
+              .value,
 
           comment:
-            document.getElementById("bookingComment").value.trim()
+            document
+              .getElementById("bookingComment")
+              .value
+              .trim()
 
         };
 
 
-        const { error: insertError } =
-          await supabaseClient
-            .from("appointments")
-            .insert([bookingData]);
+        try {
+
+          const { error: insertError } =
+            await supabaseClient
+              .from("appointments")
+              .insert([bookingData]);
 
 
-        if (insertError) {
+          if (insertError) {
+
+            throw insertError;
+
+          }
+
+
+          document
+            .getElementById("bookingFormContainer")
+            .classList.add("hidden");
+
+          document
+            .getElementById("bookingSuccess")
+            .classList.remove("hidden");
+
+        } catch (insertError) {
 
           console.error(insertError);
 
@@ -982,20 +1095,10 @@
           error.style.display = "block";
 
           button.disabled = false;
-          button.textContent = "💗 Υποβολή Ραντεβού";
-
-          return;
+          button.textContent =
+            "💗 Υποβολή Ραντεβού";
 
         }
-
-
-        document
-          .getElementById("bookingFormContainer")
-          .classList.add("hidden");
-
-        document
-          .getElementById("bookingSuccess")
-          .classList.remove("hidden");
 
       });
 
@@ -1006,7 +1109,9 @@
 
     function openCancellation() {
 
-      document.getElementById("cancellationModal").style.display = "flex";
+      document
+        .getElementById("cancellationModal")
+        .style.display = "flex";
 
       document
         .getElementById("cancellationFormContainer")
@@ -1015,6 +1120,16 @@
       document
         .getElementById("cancellationSuccess")
         .classList.add("hidden");
+
+      const button =
+        document.getElementById("cancellationSubmit");
+
+      button.disabled = false;
+      button.textContent = "❌ Υποβολή Ακύρωσης";
+
+      document
+        .getElementById("cancellationError")
+        .style.display = "none";
 
       setMinimumDate("cancellationDate");
 
@@ -1026,6 +1141,36 @@
       document
         .getElementById("cancellationModal")
         .style.display = "none";
+
+    }
+
+
+    function resetCancellation() {
+
+      document
+        .getElementById("cancellationForm")
+        .reset();
+
+      document
+        .getElementById("cancellationFormContainer")
+        .classList.remove("hidden");
+
+      document
+        .getElementById("cancellationSuccess")
+        .classList.add("hidden");
+
+      const button =
+        document.getElementById("cancellationSubmit");
+
+      button.disabled = false;
+      button.textContent =
+        "❌ Υποβολή Ακύρωσης";
+
+      document
+        .getElementById("cancellationError")
+        .style.display = "none";
+
+      setMinimumDate("cancellationDate");
 
     }
 
@@ -1076,13 +1221,30 @@
         };
 
 
-        const { error: insertError } =
-          await supabaseClient
-            .from("cancellations")
-            .insert([cancellationData]);
+        try {
+
+          const { error: insertError } =
+            await supabaseClient
+              .from("cancellations")
+              .insert([cancellationData]);
 
 
-        if (insertError) {
+          if (insertError) {
+
+            throw insertError;
+
+          }
+
+
+          document
+            .getElementById("cancellationFormContainer")
+            .classList.add("hidden");
+
+          document
+            .getElementById("cancellationSuccess")
+            .classList.remove("hidden");
+
+        } catch (insertError) {
 
           console.error(insertError);
 
@@ -1092,20 +1254,10 @@
           error.style.display = "block";
 
           button.disabled = false;
-          button.textContent = "❌ Υποβολή Ακύρωσης";
-
-          return;
+          button.textContent =
+            "❌ Υποβολή Ακύρωσης";
 
         }
-
-
-        document
-          .getElementById("cancellationFormContainer")
-          .classList.add("hidden");
-
-        document
-          .getElementById("cancellationSuccess")
-          .classList.remove("hidden");
 
       });
 
@@ -1116,7 +1268,8 @@
 
     function setMinimumDate(id) {
 
-      const today = new Date();
+      const today =
+        new Date();
 
       const year =
         today.getFullYear();
@@ -1131,7 +1284,8 @@
 
       document
         .getElementById(id)
-        .min = `${year}-${month}-${day}`;
+        .min =
+        `${year}-${month}-${day}`;
 
     }
 
