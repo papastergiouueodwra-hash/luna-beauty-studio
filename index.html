@@ -76,7 +76,7 @@
       color: #aa938b;
     }
 
-    /* SERVICES MODAL */
+    /* MODALS */
 
     .modal {
       display: none;
@@ -118,7 +118,7 @@
 
     .close-modal {
       position: absolute;
-      top: 12px;
+      top: 10px;
       right: 15px;
       border: none;
       background: transparent;
@@ -142,6 +142,8 @@
       margin-bottom: 25px;
     }
 
+    /* SERVICES */
+
     .service-list {
       display: flex;
       flex-direction: column;
@@ -164,6 +166,71 @@
     .service-list strong {
       color: #8c6860;
       white-space: nowrap;
+    }
+
+    /* LUNA CHAT */
+
+    .chat-box {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .luna-greeting {
+      background: #f3e5df;
+      border-radius: 16px;
+      padding: 15px;
+      text-align: left;
+      color: #5a4039;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .chat-input {
+      width: 100%;
+      min-height: 90px;
+      resize: none;
+      border: 1px solid #dbc9c2;
+      border-radius: 14px;
+      padding: 14px;
+      background: #fff;
+      color: #4b3832;
+      font-family: Georgia, serif;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .chat-input:focus {
+      border-color: #b9958b;
+    }
+
+    .chat-send {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      background: #8c6860;
+      color: white;
+      font-family: Georgia, serif;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .chat-send:hover {
+      background: #76554e;
+    }
+
+    .chat-response {
+      display: none;
+      background: #fff;
+      border: 1px solid #eee1dc;
+      border-radius: 14px;
+      padding: 15px;
+      text-align: left;
+      color: #5a4039;
+      font-size: 14px;
+      line-height: 1.5;
     }
   </style>
 </head>
@@ -278,7 +345,54 @@
   </div>
 
 
+  <!-- LUNA CHAT MODAL -->
+
+  <div id="chatModal" class="modal">
+
+    <div class="modal-content">
+
+      <button class="close-modal" onclick="closeChat()">
+        ×
+      </button>
+
+      <h2>
+        💗 LUNA
+      </h2>
+
+      <p class="modal-subtitle">
+        BEAUTY ASSISTANT
+      </p>
+
+      <div class="chat-box">
+
+        <div class="luna-greeting">
+          ✨ Γεια σου! Είμαι η LUNA, η beauty assistant σου.
+          <br><br>
+          Ρώτησέ με για υπηρεσίες, τιμές, ραντεβού ή ακυρώσεις. 💗
+        </div>
+
+        <textarea
+          id="chatInput"
+          class="chat-input"
+          placeholder="Γράψε την ερώτησή σου..."
+        ></textarea>
+
+        <button class="chat-send" onclick="sendQuestion()">
+          ✨ Ρώτησε τη LUNA
+        </button>
+
+        <div id="chatResponse" class="chat-response"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
   <script>
+
+    /* SERVICES */
 
     function showServices() {
       document.getElementById("servicesModal").style.display = "flex";
@@ -288,22 +402,39 @@
       document.getElementById("servicesModal").style.display = "none";
     }
 
-    window.onclick = function(event) {
-      const modal = document.getElementById("servicesModal");
 
-      if (event.target === modal) {
-        closeServices();
-      }
-    };
-
+    /* CHAT */
 
     function lunaAssistant() {
+      document.getElementById("chatModal").style.display = "flex";
 
-      const question = prompt(
-        "💗 Γεια σου! Είμαι η LUNA, η beauty assistant σου ✨\n\nΤι θα ήθελες να με ρωτήσεις;"
-      );
+      document.getElementById("chatInput").value = "";
+      document.getElementById("chatResponse").style.display = "none";
 
-      if (!question) return;
+      setTimeout(function() {
+        document.getElementById("chatInput").focus();
+      }, 200);
+    }
+
+    function closeChat() {
+      document.getElementById("chatModal").style.display = "none";
+    }
+
+
+    /* LUNA ANSWERS */
+
+    function sendQuestion() {
+
+      const input = document.getElementById("chatInput");
+      const response = document.getElementById("chatResponse");
+
+      const question = input.value.trim();
+
+      if (!question) {
+        response.innerHTML = "💗 Γράψε μου πρώτα την ερώτησή σου!";
+        response.style.display = "block";
+        return;
+      }
 
       const q = question
         .toLowerCase()
@@ -317,9 +448,8 @@
         q.includes("κρατηση")
       ) {
 
-        alert(
-          "💗 Φυσικά! Πάτησε «Κλείσε ραντεβού» για να συμπληρώσεις τη φόρμα κράτησης."
-        );
+        response.innerHTML =
+          "💗 Φυσικά! Για να κλείσεις ραντεβού, πάτησε «Κλείσε ραντεβού» από το κεντρικό μενού.";
 
       }
 
@@ -334,19 +464,22 @@
 
         if (q.includes("μανικιουρ")) {
 
-          alert("💅 Το μανικιούρ μας κοστίζει 30€.");
+          response.innerHTML =
+            "💅 Το μανικιούρ μας κοστίζει <strong>30€</strong>.";
 
         }
 
         else if (q.includes("πεντικιουρ")) {
 
-          alert("🦶 Το πεντικιούρ μας κοστίζει 35€.");
+          response.innerHTML =
+            "🦶 Το πεντικιούρ μας κοστίζει <strong>35€</strong>.";
 
         }
 
         else if (q.includes("βλεφαριδ")) {
 
-          alert("👁️ Τα extensions βλεφαρίδων κοστίζουν 55€.");
+          response.innerHTML =
+            "👁️ Τα extensions βλεφαρίδων κοστίζουν <strong>55€</strong>.";
 
         }
 
@@ -355,15 +488,46 @@
           q.includes("facial")
         ) {
 
-          alert("✨ Η περιποίηση προσώπου κοστίζει 45€.");
+          response.innerHTML =
+            "✨ Η περιποίηση προσώπου κοστίζει <strong>45€</strong>.";
+
+        }
+
+        else if (q.includes("φρυδι")) {
+
+          response.innerHTML =
+            "🤎 Ο σχηματισμός & η περιποίηση φρυδιών κοστίζει <strong>30€</strong>.";
+
+        }
+
+        else if (q.includes("lash") || q.includes("lift")) {
+
+          response.innerHTML =
+            "💆‍♀️ Το Lash Lift κοστίζει <strong>40€</strong>.";
+
+        }
+
+        else if (
+          q.includes("gel") ||
+          q.includes("ημιμονιμο")
+        ) {
+
+          response.innerHTML =
+            "💎 Το Gel / Ημιμόνιμο κοστίζει <strong>40€</strong>.";
+
+        }
+
+        else if (q.includes("luxury")) {
+
+          response.innerHTML =
+            "🌸 Το Luxury Facial κοστίζει <strong>60€</strong>.";
 
         }
 
         else {
 
-          alert(
-            "✨ Πάτησε «Υπηρεσίες & Τιμές» για να δεις όλες τις υπηρεσίες μας."
-          );
+          response.innerHTML =
+            "✨ Πάτησε «Υπηρεσίες & Τιμές» για να δεις ολόκληρο τον κατάλογό μας.";
 
         }
 
@@ -372,43 +536,66 @@
 
       else if (q.includes("ακυρ")) {
 
-        alert(
-          "❌ Για ακύρωση ραντεβού πάτησε «Ακύρωση Ραντεβού» και συμπλήρωσε τη φόρμα."
-        );
+        response.innerHTML =
+          "❌ Για ακύρωση ραντεβού, πάτησε «Ακύρωση Ραντεβού» από το κεντρικό μενού.";
 
       }
 
 
       else if (q.includes("μανικιουρ")) {
 
-        alert("💅 Το μανικιούρ μας κοστίζει 30€.");
+        response.innerHTML =
+          "💅 Το μανικιούρ μας κοστίζει <strong>30€</strong>.";
 
       }
 
 
       else if (q.includes("πεντικιουρ")) {
 
-        alert("🦶 Το πεντικιούρ μας κοστίζει 35€.");
+        response.innerHTML =
+          "🦶 Το πεντικιούρ μας κοστίζει <strong>35€</strong>.";
 
       }
 
 
       else if (q.includes("βλεφαριδ")) {
 
-        alert("👁️ Τα extensions βλεφαρίδων κοστίζουν 55€.");
+        response.innerHTML =
+          "👁️ Τα extensions βλεφαρίδων κοστίζουν <strong>55€</strong>.";
 
       }
 
 
       else {
 
-        alert(
-          "✨ Ευχαριστώ για την ερώτησή σου! Για περισσότερες πληροφορίες μπορείς να επικοινωνήσεις μαζί μας."
-        );
+        response.innerHTML =
+          "✨ Δεν είμαι σίγουρη ότι κατάλαβα. Μπορείς να με ρωτήσεις για υπηρεσίες, τιμές, ραντεβού ή ακύρωση. 💗";
 
       }
 
+      response.style.display = "block";
     }
+
+
+    /* CLOSE MODALS WHEN CLICKING OUTSIDE */
+
+    window.onclick = function(event) {
+
+      const servicesModal =
+        document.getElementById("servicesModal");
+
+      const chatModal =
+        document.getElementById("chatModal");
+
+      if (event.target === servicesModal) {
+        closeServices();
+      }
+
+      if (event.target === chatModal) {
+        closeChat();
+      }
+
+    };
 
   </script>
 
