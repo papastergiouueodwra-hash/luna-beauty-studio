@@ -6,6 +6,8 @@
 
   <title>LUNA BEAUTY STUDIO</title>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -84,9 +86,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* =========================
-       MODALS
-    ========================= */
+    /* MODALS */
 
     .modal {
       display: none;
@@ -152,9 +152,7 @@
       margin-bottom: 22px;
     }
 
-    /* =========================
-       SERVICES
-    ========================= */
+    /* SERVICES */
 
     .service-list {
       display: flex;
@@ -182,9 +180,105 @@
       margin-left: 10px;
     }
 
-    /* =========================
-       CHAT
-    ========================= */
+    /* FORMS */
+
+    .form-group {
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: #79575b;
+      font-weight: bold;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      border: 1px solid #e3c8ca;
+      border-radius: 14px;
+      padding: 13px;
+      outline: none;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 14px;
+      color: #5d4548;
+      background: #fff;
+    }
+
+    .form-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: #c99da1;
+    }
+
+    .form-submit {
+      width: 100%;
+      border: none;
+      border-radius: 16px;
+      padding: 15px;
+      background: #b9898e;
+      color: white;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 5px;
+      transition: 0.2s ease;
+    }
+
+    .form-submit:hover {
+      background: #a8757a;
+      transform: translateY(-1px);
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: wait;
+      transform: none;
+    }
+
+    .success-box {
+      text-align: center;
+      padding: 25px 10px;
+    }
+
+    .success-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .success-box h3 {
+      color: #81575b;
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+
+    .success-box p {
+      color: #806466;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .error-message {
+      display: none;
+      background: #f8dddd;
+      color: #8b4d52;
+      padding: 10px 12px;
+      border-radius: 12px;
+      margin-bottom: 13px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    /* CHAT */
 
     .chat-box {
       text-align: left;
@@ -330,13 +424,7 @@
       }
     }
 
-    .hidden {
-      display: none;
-    }
-
-    /* =========================
-       MOBILE
-    ========================= */
+    /* MOBILE */
 
     @media (max-width: 480px) {
 
@@ -414,9 +502,231 @@
   </div>
 
 
-  <!-- =========================
-       SERVICES MODAL
-  ========================= -->
+  <!-- BOOKING MODAL -->
+
+  <div id="bookingModal" class="modal">
+
+    <div class="modal-content">
+
+      <button class="close-modal" onclick="closeBooking()">
+        ×
+      </button>
+
+      <h2>💗 Κλείσε Ραντεβού</h2>
+
+      <p class="modal-subtitle">
+        LUNA BEAUTY STUDIO
+      </p>
+
+      <div id="bookingFormContainer">
+
+        <div id="bookingError" class="error-message"></div>
+
+        <form id="bookingForm">
+
+          <div class="form-group">
+            <label>Όνομα *</label>
+            <input
+              id="bookingName"
+              class="form-input"
+              type="text"
+              placeholder="Το όνομά σου"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Τηλέφωνο *</label>
+            <input
+              id="bookingPhone"
+              class="form-input"
+              type="tel"
+              placeholder="Τηλέφωνο επικοινωνίας"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Υπηρεσία *</label>
+
+            <select
+              id="bookingService"
+              class="form-select"
+              required
+            >
+              <option value="">Επίλεξε υπηρεσία</option>
+              <option value="Μανικιούρ">💅 Μανικιούρ — 30€</option>
+              <option value="Πεντικιούρ">🦶 Πεντικιούρ — 35€</option>
+              <option value="Περιποίηση Προσώπου">✨ Περιποίηση Προσώπου — 45€</option>
+              <option value="Extensions Βλεφαρίδων">👁️ Extensions Βλεφαρίδων — 55€</option>
+              <option value="Σχηματισμός & Περιποίηση Φρυδιών">🤎 Φρύδια — 30€</option>
+              <option value="Lash Lift">💆‍♀️ Lash Lift — 40€</option>
+              <option value="Gel / Ημιμόνιμο">💎 Gel / Ημιμόνιμο — 40€</option>
+              <option value="Luxury Facial">🌸 Luxury Facial — 60€</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Ημερομηνία *</label>
+
+            <input
+              id="bookingDate"
+              class="form-input"
+              type="date"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Ώρα *</label>
+
+            <input
+              id="bookingTime"
+              class="form-input"
+              type="time"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Σχόλιο / Επιθυμία</label>
+
+            <textarea
+              id="bookingComment"
+              class="form-textarea"
+              placeholder="Κάτι που θα ήθελες να μας πεις..."
+            ></textarea>
+          </div>
+
+          <button
+            id="bookingSubmit"
+            class="form-submit"
+            type="submit">
+            💗 Υποβολή Ραντεβού
+          </button>
+
+        </form>
+
+      </div>
+
+      <div id="bookingSuccess" class="success-box hidden">
+
+        <div class="success-icon">💗</div>
+
+        <h3>Το αίτημά σου καταχωρήθηκε!</h3>
+
+        <p>
+          Σε ευχαριστούμε πολύ. ✨
+          <br>
+          Το αίτημα για το ραντεβού σου
+          καταχωρήθηκε επιτυχώς.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- CANCELLATION MODAL -->
+
+  <div id="cancellationModal" class="modal">
+
+    <div class="modal-content">
+
+      <button class="close-modal" onclick="closeCancellation()">
+        ×
+      </button>
+
+      <h2>❌ Ακύρωση Ραντεβού</h2>
+
+      <p class="modal-subtitle">
+        LUNA BEAUTY STUDIO
+      </p>
+
+      <div id="cancellationFormContainer">
+
+        <div id="cancellationError" class="error-message"></div>
+
+        <form id="cancellationForm">
+
+          <div class="form-group">
+            <label>Όνομα *</label>
+
+            <input
+              id="cancellationName"
+              class="form-input"
+              type="text"
+              placeholder="Το όνομά σου"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Τηλέφωνο *</label>
+
+            <input
+              id="cancellationPhone"
+              class="form-input"
+              type="tel"
+              placeholder="Τηλέφωνο επικοινωνίας"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Ημερομηνία ραντεβού *</label>
+
+            <input
+              id="cancellationDate"
+              class="form-input"
+              type="date"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Λόγος ακύρωσης</label>
+
+            <textarea
+              id="cancellationReason"
+              class="form-textarea"
+              placeholder="Προαιρετικά, γράψε τον λόγο..."
+            ></textarea>
+          </div>
+
+          <button
+            id="cancellationSubmit"
+            class="form-submit"
+            type="submit">
+            ❌ Υποβολή Ακύρωσης
+          </button>
+
+        </form>
+
+      </div>
+
+      <div id="cancellationSuccess" class="success-box hidden">
+
+        <div class="success-icon">💗</div>
+
+        <h3>Η ακύρωση καταχωρήθηκε!</h3>
+
+        <p>
+          Το αίτημά σου καταχωρήθηκε επιτυχώς.
+          <br>
+          Σε ευχαριστούμε που μας ενημέρωσες. ✨
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SERVICES MODAL -->
 
   <div id="servicesModal" class="modal">
 
@@ -481,9 +791,7 @@
   </div>
 
 
-  <!-- =========================
-       LUNA CHAT MODAL
-  ========================= -->
+  <!-- LUNA CHAT MODAL -->
 
   <div id="chatModal" class="modal">
 
@@ -510,7 +818,6 @@
           </div>
 
         </div>
-
 
         <div class="quick-title">
           Ή επίλεξε μια γρήγορη ερώτηση:
@@ -550,7 +857,6 @@
 
         </div>
 
-
         <div class="chat-input-row">
 
           <textarea
@@ -580,25 +886,252 @@
   <script>
 
     /* =========================
-       GOOGLE FORMS
+       SUPABASE
+    ========================= */
+
+    const SUPABASE_URL =
+      "https://qhofixyxrouqnbydlgxh.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_nzgpgJEi0Uuh3hkEmu1uBw_ceghXjos";
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+
+    /* =========================
+       BOOKING
     ========================= */
 
     function openBooking() {
 
-      window.open(
-        "https://docs.google.com/forms/d/e/1FAIpQLSfjuKu7TTeKBCsMSEdsv9hqHq9fRa7JhNrQPLCEfOc8hzW-pA/viewform?usp=publish-editor",
-        "_blank"
-      );
+      document.getElementById("bookingModal").style.display = "flex";
+
+      document.getElementById("bookingFormContainer").classList.remove("hidden");
+      document.getElementById("bookingSuccess").classList.add("hidden");
+
+      setMinimumDate("bookingDate");
 
     }
 
 
+    function closeBooking() {
+
+      document.getElementById("bookingModal").style.display = "none";
+
+    }
+
+
+    document
+      .getElementById("bookingForm")
+      .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const button =
+          document.getElementById("bookingSubmit");
+
+        const error =
+          document.getElementById("bookingError");
+
+        error.style.display = "none";
+
+        button.disabled = true;
+        button.textContent = "⏳ Καταχώρηση...";
+
+
+        const bookingData = {
+
+          name:
+            document.getElementById("bookingName").value.trim(),
+
+          phone:
+            document.getElementById("bookingPhone").value.trim(),
+
+          service:
+            document.getElementById("bookingService").value,
+
+          appointment_date:
+            document.getElementById("bookingDate").value,
+
+          appointment_time:
+            document.getElementById("bookingTime").value,
+
+          comment:
+            document.getElementById("bookingComment").value.trim()
+
+        };
+
+
+        const { error: insertError } =
+          await supabaseClient
+            .from("appointments")
+            .insert([bookingData]);
+
+
+        if (insertError) {
+
+          console.error(insertError);
+
+          error.textContent =
+            "Δεν μπορέσαμε να καταχωρήσουμε το ραντεβού. Παρακαλώ δοκίμασε ξανά.";
+
+          error.style.display = "block";
+
+          button.disabled = false;
+          button.textContent = "💗 Υποβολή Ραντεβού";
+
+          return;
+
+        }
+
+
+        document
+          .getElementById("bookingFormContainer")
+          .classList.add("hidden");
+
+        document
+          .getElementById("bookingSuccess")
+          .classList.remove("hidden");
+
+      });
+
+
+    /* =========================
+       CANCELLATION
+    ========================= */
+
     function openCancellation() {
 
-      window.open(
-        "https://docs.google.com/forms/d/e/1FAIpQLSeZ3dTuj0ANox857-PALDBWBJ_21D-vf0PTT_MUybN2ghBajg/viewform?usp=publish-editor",
-        "_blank"
-      );
+      document.getElementById("cancellationModal").style.display = "flex";
+
+      document
+        .getElementById("cancellationFormContainer")
+        .classList.remove("hidden");
+
+      document
+        .getElementById("cancellationSuccess")
+        .classList.add("hidden");
+
+      setMinimumDate("cancellationDate");
+
+    }
+
+
+    function closeCancellation() {
+
+      document
+        .getElementById("cancellationModal")
+        .style.display = "none";
+
+    }
+
+
+    document
+      .getElementById("cancellationForm")
+      .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const button =
+          document.getElementById("cancellationSubmit");
+
+        const error =
+          document.getElementById("cancellationError");
+
+        error.style.display = "none";
+
+        button.disabled = true;
+        button.textContent = "⏳ Καταχώρηση...";
+
+
+        const cancellationData = {
+
+          name:
+            document
+              .getElementById("cancellationName")
+              .value
+              .trim(),
+
+          phone:
+            document
+              .getElementById("cancellationPhone")
+              .value
+              .trim(),
+
+          appointment_date:
+            document
+              .getElementById("cancellationDate")
+              .value,
+
+          reason:
+            document
+              .getElementById("cancellationReason")
+              .value
+              .trim()
+
+        };
+
+
+        const { error: insertError } =
+          await supabaseClient
+            .from("cancellations")
+            .insert([cancellationData]);
+
+
+        if (insertError) {
+
+          console.error(insertError);
+
+          error.textContent =
+            "Δεν μπορέσαμε να καταχωρήσουμε την ακύρωση. Παρακαλώ δοκίμασε ξανά.";
+
+          error.style.display = "block";
+
+          button.disabled = false;
+          button.textContent = "❌ Υποβολή Ακύρωσης";
+
+          return;
+
+        }
+
+
+        document
+          .getElementById("cancellationFormContainer")
+          .classList.add("hidden");
+
+        document
+          .getElementById("cancellationSuccess")
+          .classList.remove("hidden");
+
+      });
+
+
+    /* =========================
+       MINIMUM DATE
+    ========================= */
+
+    function setMinimumDate(id) {
+
+      const today = new Date();
+
+      const year =
+        today.getFullYear();
+
+      const month =
+        String(today.getMonth() + 1)
+          .padStart(2, "0");
+
+      const day =
+        String(today.getDate())
+          .padStart(2, "0");
+
+      document
+        .getElementById(id)
+        .min = `${year}-${month}-${day}`;
 
     }
 
@@ -609,14 +1142,18 @@
 
     function showServices() {
 
-      document.getElementById("servicesModal").style.display = "flex";
+      document
+        .getElementById("servicesModal")
+        .style.display = "flex";
 
     }
 
 
     function closeServices() {
 
-      document.getElementById("servicesModal").style.display = "none";
+      document
+        .getElementById("servicesModal")
+        .style.display = "none";
 
     }
 
@@ -627,13 +1164,19 @@
 
     function lunaAssistant() {
 
-      document.getElementById("chatModal").style.display = "flex";
+      document
+        .getElementById("chatModal")
+        .style.display = "flex";
 
-      document.getElementById("chatInput").value = "";
+      document
+        .getElementById("chatInput")
+        .value = "";
 
       setTimeout(function() {
 
-        document.getElementById("chatInput").focus();
+        document
+          .getElementById("chatInput")
+          .focus();
 
       }, 200);
 
@@ -642,7 +1185,9 @@
 
     function closeChat() {
 
-      document.getElementById("chatModal").style.display = "none";
+      document
+        .getElementById("chatModal")
+        .style.display = "none";
 
     }
 
@@ -653,34 +1198,43 @@
 
     function addMessage(text, type) {
 
-      const messages = document.getElementById("chatMessages");
+      const messages =
+        document.getElementById("chatMessages");
 
-      const message = document.createElement("div");
+      const message =
+        document.createElement("div");
 
-      message.className = "message " + type;
+      message.className =
+        "message " + type;
 
-      message.innerHTML = text;
+      message.innerHTML =
+        text;
 
       messages.appendChild(message);
 
-      messages.scrollTop = messages.scrollHeight;
+      messages.scrollTop =
+        messages.scrollHeight;
 
     }
 
 
     /* =========================
-       TYPING EFFECT
+       TYPING
     ========================= */
 
     function showTyping() {
 
-      const messages = document.getElementById("chatMessages");
+      const messages =
+        document.getElementById("chatMessages");
 
-      const typing = document.createElement("div");
+      const typing =
+        document.createElement("div");
 
-      typing.id = "typingMessage";
+      typing.id =
+        "typingMessage";
 
-      typing.className = "message luna-message";
+      typing.className =
+        "message luna-message";
 
       typing.innerHTML = `
         <div class="typing">
@@ -692,14 +1246,16 @@
 
       messages.appendChild(typing);
 
-      messages.scrollTop = messages.scrollHeight;
+      messages.scrollTop =
+        messages.scrollHeight;
 
     }
 
 
     function removeTyping() {
 
-      const typing = document.getElementById("typingMessage");
+      const typing =
+        document.getElementById("typingMessage");
 
       if (typing) {
 
@@ -716,9 +1272,11 @@
 
     function sendQuestion() {
 
-      const input = document.getElementById("chatInput");
+      const input =
+        document.getElementById("chatInput");
 
-      const question = input.value.trim();
+      const question =
+        input.value.trim();
 
       if (!question) {
 
@@ -739,7 +1297,8 @@
 
         removeTyping();
 
-        const answer = getLunaAnswer(question);
+        const answer =
+          getLunaAnswer(question);
 
         addMessage(
           answer,
@@ -757,7 +1316,9 @@
 
     function quickQuestion(question) {
 
-      document.getElementById("chatInput").value = question;
+      document
+        .getElementById("chatInput")
+        .value = question;
 
       sendQuestion();
 
@@ -765,12 +1326,15 @@
 
 
     /* =========================
-       ENTER TO SEND
+       ENTER
     ========================= */
 
     function handleEnter(event) {
 
-      if (event.key === "Enter" && !event.shiftKey) {
+      if (
+        event.key === "Enter" &&
+        !event.shiftKey
+      ) {
 
         event.preventDefault();
 
@@ -787,13 +1351,12 @@
 
     function getLunaAnswer(question) {
 
-      const q = question
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
+      const q =
+        question
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
 
-
-      /* ΡΑΝΤΕΒΟΥ */
 
       if (
         q.includes("ραντεβου") ||
@@ -807,14 +1370,12 @@
           πάτησε <strong>«Κλείσε ραντεβού»</strong>
           από το κεντρικό μενού.
           <br><br>
-          ✨ Θα συμπληρώσεις την υπηρεσία, την ημερομηνία
-          και την ώρα που σε ενδιαφέρει.
+          ✨ Θα συμπληρώσεις την υπηρεσία,
+          την ημερομηνία και την ώρα που σε ενδιαφέρει.
         `;
 
       }
 
-
-      /* ΑΚΥΡΩΣΗ */
 
       if (
         q.includes("ακυρ") ||
@@ -830,8 +1391,6 @@
 
       }
 
-
-      /* ΟΛΕΣ ΟΙ ΤΙΜΕΣ */
 
       if (
         q.includes("τιμες") ||
@@ -859,8 +1418,6 @@
       }
 
 
-      /* ΜΑΝΙΚΙΟΥΡ */
-
       if (
         q.includes("μανικιουρ") ||
         q.includes("νυχια χεριων")
@@ -875,8 +1432,6 @@
 
       }
 
-
-      /* ΠΕΝΤΙΚΙΟΥΡ */
 
       if (
         q.includes("πεντικιουρ") ||
@@ -893,8 +1448,6 @@
 
       }
 
-
-      /* ΒΛΕΦΑΡΙΔΕΣ */
 
       if (
         q.includes("βλεφαριδ") ||
@@ -913,8 +1466,6 @@
       }
 
 
-      /* ΠΡΟΣΩΠΟ */
-
       if (
         q.includes("προσωπο") ||
         q.includes("facial")
@@ -930,8 +1481,6 @@
       }
 
 
-      /* ΦΡΥΔΙΑ */
-
       if (
         q.includes("φρυδι")
       ) {
@@ -943,8 +1492,6 @@
 
       }
 
-
-      /* LASH LIFT */
 
       if (
         q.includes("lash") ||
@@ -959,11 +1506,8 @@
       }
 
 
-      /* GEL */
-
       if (
         q.includes("gel") ||
-        q.includes("ημιμονιμο") ||
         q.includes("ημιμονιμο")
       ) {
 
@@ -974,8 +1518,6 @@
 
       }
 
-
-      /* ΧΑΙΡΕΤΙΣΜΟΣ */
 
       if (
         q.includes("γεια") ||
@@ -999,8 +1541,6 @@
       }
 
 
-      /* DEFAULT */
-
       return `
         ✨ Χμμ... δεν είμαι σίγουρη ότι κατάλαβα.
         <br><br>
@@ -1022,9 +1562,11 @@
 
     function escapeHtml(text) {
 
-      const div = document.createElement("div");
+      const div =
+        document.createElement("div");
 
-      div.textContent = text;
+      div.textContent =
+        text;
 
       return div.innerHTML;
 
@@ -1032,33 +1574,55 @@
 
 
     /* =========================
-       CLOSE MODAL WHEN CLICK
-       OUTSIDE
+       CLOSE OUTSIDE
     ========================= */
 
-    window.addEventListener("click", function(event) {
+    window.addEventListener(
+      "click",
+      function(event) {
 
-      const servicesModal =
-        document.getElementById("servicesModal");
+        const servicesModal =
+          document.getElementById("servicesModal");
 
-      const chatModal =
-        document.getElementById("chatModal");
+        const chatModal =
+          document.getElementById("chatModal");
+
+        const bookingModal =
+          document.getElementById("bookingModal");
+
+        const cancellationModal =
+          document.getElementById("cancellationModal");
 
 
-      if (event.target === servicesModal) {
+        if (event.target === servicesModal) {
 
-        closeServices();
+          closeServices();
+
+        }
+
+
+        if (event.target === chatModal) {
+
+          closeChat();
+
+        }
+
+
+        if (event.target === bookingModal) {
+
+          closeBooking();
+
+        }
+
+
+        if (event.target === cancellationModal) {
+
+          closeCancellation();
+
+        }
 
       }
-
-
-      if (event.target === chatModal) {
-
-        closeChat();
-
-      }
-
-    });
+    );
 
   </script>
 
