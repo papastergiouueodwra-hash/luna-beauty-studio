@@ -75,6 +75,96 @@
       font-size: 12px;
       color: #aa938b;
     }
+
+    /* SERVICES MODAL */
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      inset: 0;
+      background: rgba(75, 56, 50, 0.35);
+      backdrop-filter: blur(5px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 430px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: #fffaf8;
+      border: 1px solid #eadbd5;
+      border-radius: 24px;
+      padding: 30px 22px;
+      box-shadow: 0 20px 60px rgba(75, 56, 50, 0.18);
+      animation: modalAppear 0.25s ease;
+    }
+
+    @keyframes modalAppear {
+      from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      border: none;
+      background: transparent;
+      font-size: 28px;
+      color: #8c6860;
+      cursor: pointer;
+    }
+
+    .modal-content h2 {
+      text-align: center;
+      color: #6f5149;
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .modal-subtitle {
+      text-align: center;
+      color: #aa938b;
+      font-size: 11px;
+      letter-spacing: 2px;
+      margin-bottom: 25px;
+    }
+
+    .service-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .service-list div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      padding: 13px 14px;
+      background: #fff;
+      border: 1px solid #eee1dc;
+      border-radius: 12px;
+      color: #5a4039;
+      font-size: 14px;
+    }
+
+    .service-list strong {
+      color: #8c6860;
+      white-space: nowrap;
+    }
   </style>
 </head>
 
@@ -96,21 +186,21 @@
 
     <div class="menu">
 
-      <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfjuKu7TTeKBCsMSEdsv9hqHq9fRa7JhNrQPLCEfOc8hzW-pA/viewform?usp=publish-editor')">
+      <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfjuKu7TTeKBCsMSEdsv9hqHq9fRa7JhNrQPLCEfOc8hzW-pA/viewform?usp=publish-editor', '_blank')">
         💗 Κλείσε ραντεβού
       </button>
 
-      <button onclick="alert('💅 Μανικιούρ — 30€\n🦶 Πεντικιούρ — 35€\n✨ Περιποίηση Προσώπου — 45€\n👁️ Extensions Βλεφαρίδων — 55€\n🤎 Σχηματισμός & Περιποίηση Φρυδιών — 30€\n💆‍♀️ Lash Lift — 40€\n💎 Gel / Ημιμόνιμο — 40€\n🌸 Luxury Facial — 60€')">
+      <button onclick="showServices()">
         ✨ Υπηρεσίες & Τιμές
       </button>
 
-    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeZ3dTuj0ANox857-PALDBWBJ_21D-vf0PTT_MUybN2ghBajg/viewform?usp=publish-editor', '_blank')">
-  ❌ Ακύρωση Ραντεβού
-</button>
+      <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeZ3dTuj0ANox857-PALDBWBJ_21D-vf0PTT_MUybN2ghBajg/viewform?usp=publish-editor', '_blank')">
+        ❌ Ακύρωση Ραντεβού
+      </button>
 
       <button onclick="lunaAssistant()">
-  💬 Έχω μια ερώτηση
-</button>
+        💬 Έχω μια ερώτηση
+      </button>
 
     </div>
 
@@ -119,52 +209,208 @@
     </div>
 
   </div>
-<script>
-function lunaAssistant() {
-  const question = prompt("💗 Γεια σου! Είμαι η LUNA, η beauty assistant σου ✨\n\nΤι θα ήθελες να με ρωτήσεις;");
 
-  if (!question) return;
 
-  const q = question.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  <!-- SERVICES MODAL -->
 
-  if (q.includes("ραντεβου") || q.includes("κλεισω") || q.includes("κρατηση")) {
-    alert("💗 Φυσικά! Πάτησε «Κλείσε ραντεβού» για να συμπληρώσεις τη φόρμα κράτησης.");
-  } 
-  else if (q.includes("τιμη") || q.includes("τιμες") || q.includes("κοστιζει") || q.includes("κοστιζει") || q.includes("ποσο") || q.includes("κανει")) {
-    
-    if (q.includes("μανικιουρ")) {
-      alert("💅 Το μανικιούρ μας κοστίζει 30€.");
-    } 
-    else if (q.includes("πεντικιουρ")) {
-      alert("🦶 Το πεντικιούρ μας κοστίζει 35€.");
-    } 
-    else if (q.includes("βλεφαριδ")) {
-      alert("👁️ Τα extensions βλεφαρίδων κοστίζουν 55€.");
-    } 
-    else if (q.includes("προσωπο") || q.includes("facial")) {
-      alert("✨ Η περιποίηση προσώπου κοστίζει 45€.");
+  <div id="servicesModal" class="modal">
+
+    <div class="modal-content">
+
+      <button class="close-modal" onclick="closeServices()">
+        ×
+      </button>
+
+      <h2>
+        ✨ Υπηρεσίες & Τιμές
+      </h2>
+
+      <p class="modal-subtitle">
+        LUNA BEAUTY STUDIO
+      </p>
+
+      <div class="service-list">
+
+        <div>
+          <span>💅 Μανικιούρ</span>
+          <strong>30€</strong>
+        </div>
+
+        <div>
+          <span>🦶 Πεντικιούρ</span>
+          <strong>35€</strong>
+        </div>
+
+        <div>
+          <span>✨ Περιποίηση Προσώπου</span>
+          <strong>45€</strong>
+        </div>
+
+        <div>
+          <span>👁️ Extensions Βλεφαρίδων</span>
+          <strong>55€</strong>
+        </div>
+
+        <div>
+          <span>🤎 Σχηματισμός & Περιποίηση Φρυδιών</span>
+          <strong>30€</strong>
+        </div>
+
+        <div>
+          <span>💆‍♀️ Lash Lift</span>
+          <strong>40€</strong>
+        </div>
+
+        <div>
+          <span>💎 Gel / Ημιμόνιμο</span>
+          <strong>40€</strong>
+        </div>
+
+        <div>
+          <span>🌸 Luxury Facial</span>
+          <strong>60€</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    function showServices() {
+      document.getElementById("servicesModal").style.display = "flex";
     }
-    else {
-      alert("✨ Πάτησε «Υπηρεσίες & Τιμές» για να δεις όλες τις υπηρεσίες μας.");
+
+    function closeServices() {
+      document.getElementById("servicesModal").style.display = "none";
     }
-  } 
-  else if (q.includes("ακυρ")) {
-    alert("❌ Για ακύρωση ραντεβού πάτησε «Ακύρωση Ραντεβού» και συμπλήρωσε τη φόρμα.");
-  } 
-  else if (q.includes("μανικιουρ")) {
-    alert("💅 Το μανικιούρ μας κοστίζει 30€.");
-  } 
-  else if (q.includes("πεντικιουρ")) {
-    alert("🦶 Το πεντικιούρ μας κοστίζει 35€.");
-  } 
-  else if (q.includes("βλεφαριδ")) {
-    alert("👁️ Τα extensions βλεφαρίδων κοστίζουν 55€.");
-  } 
-  else {
-    alert("✨ Ευχαριστώ για την ερώτησή σου! Για περισσότερες πληροφορίες μπορείς να επικοινωνήσεις μαζί μας.");
-  }
-}
-</script>
-</script>
+
+    window.onclick = function(event) {
+      const modal = document.getElementById("servicesModal");
+
+      if (event.target === modal) {
+        closeServices();
+      }
+    };
+
+
+    function lunaAssistant() {
+
+      const question = prompt(
+        "💗 Γεια σου! Είμαι η LUNA, η beauty assistant σου ✨\n\nΤι θα ήθελες να με ρωτήσεις;"
+      );
+
+      if (!question) return;
+
+      const q = question
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+
+      if (
+        q.includes("ραντεβου") ||
+        q.includes("κλεισω") ||
+        q.includes("κρατηση")
+      ) {
+
+        alert(
+          "💗 Φυσικά! Πάτησε «Κλείσε ραντεβού» για να συμπληρώσεις τη φόρμα κράτησης."
+        );
+
+      }
+
+
+      else if (
+        q.includes("τιμη") ||
+        q.includes("τιμες") ||
+        q.includes("κοστιζει") ||
+        q.includes("ποσο") ||
+        q.includes("κανει")
+      ) {
+
+        if (q.includes("μανικιουρ")) {
+
+          alert("💅 Το μανικιούρ μας κοστίζει 30€.");
+
+        }
+
+        else if (q.includes("πεντικιουρ")) {
+
+          alert("🦶 Το πεντικιούρ μας κοστίζει 35€.");
+
+        }
+
+        else if (q.includes("βλεφαριδ")) {
+
+          alert("👁️ Τα extensions βλεφαρίδων κοστίζουν 55€.");
+
+        }
+
+        else if (
+          q.includes("προσωπο") ||
+          q.includes("facial")
+        ) {
+
+          alert("✨ Η περιποίηση προσώπου κοστίζει 45€.");
+
+        }
+
+        else {
+
+          alert(
+            "✨ Πάτησε «Υπηρεσίες & Τιμές» για να δεις όλες τις υπηρεσίες μας."
+          );
+
+        }
+
+      }
+
+
+      else if (q.includes("ακυρ")) {
+
+        alert(
+          "❌ Για ακύρωση ραντεβού πάτησε «Ακύρωση Ραντεβού» και συμπλήρωσε τη φόρμα."
+        );
+
+      }
+
+
+      else if (q.includes("μανικιουρ")) {
+
+        alert("💅 Το μανικιούρ μας κοστίζει 30€.");
+
+      }
+
+
+      else if (q.includes("πεντικιουρ")) {
+
+        alert("🦶 Το πεντικιούρ μας κοστίζει 35€.");
+
+      }
+
+
+      else if (q.includes("βλεφαριδ")) {
+
+        alert("👁️ Τα extensions βλεφαρίδων κοστίζουν 55€.");
+
+      }
+
+
+      else {
+
+        alert(
+          "✨ Ευχαριστώ για την ερώτησή σου! Για περισσότερες πληροφορίες μπορείς να επικοινωνήσεις μαζί μας."
+        );
+
+      }
+
+    }
+
+  </script>
+
 </body>
 </html>
